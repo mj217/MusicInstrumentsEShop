@@ -52,6 +52,10 @@ public class User {
 				fetch = FetchType.LAZY)
 	private HashSet<Order> managerOrders;
 	
+	@OneToMany(mappedBy = "modifiedBy",
+				fetch = FetchType.LAZY)
+	private HashSet<OrderHistoryItem> orderHistoryItems;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -130,5 +134,13 @@ public class User {
 	
 	public void setManagerOrders(HashSet<Order> managerOrders) {
 		this.managerOrders = managerOrders;
+	}
+	
+	public HashSet<OrderHistoryItem> getOrderHistoryItems() {
+		return orderHistoryItems;
+	}
+	
+	public void setOrderHistoryItems(HashSet<OrderHistoryItem> orderHistoryItems) {
+		this.orderHistoryItems = orderHistoryItems;
 	}
 }

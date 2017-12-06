@@ -1,14 +1,17 @@
 package com.musicinstruments.entity;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.musicinstruments.enums.OrderState;
@@ -35,6 +38,10 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "ManagerID", nullable = false)
 	private User manager;
+	
+	@OneToMany(mappedBy = "order",
+			fetch = FetchType.LAZY)
+	HashSet<OrderHistoryItem> orderHistoryItems;
 	
 	public Integer getId() {
 		return id;
@@ -75,4 +82,13 @@ public class Order {
 	public void setManager(User manager) {
 		this.manager = manager;
 	} 
+	
+	public HashSet<OrderHistoryItem> getOrderHistoryItems() {
+		return orderHistoryItems;
+	}
+	
+	public void setOrderHistoryItems(HashSet<OrderHistoryItem> orderHistoryItems) {
+		this.orderHistoryItems = orderHistoryItems;
+	}
+
 }
