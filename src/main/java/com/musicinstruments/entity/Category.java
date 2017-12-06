@@ -34,7 +34,7 @@ public class Category {
 	private HashSet<Category> subCategories = new HashSet<Category>();
 	
 	@ManyToMany(mappedBy = "categories")
-	private HashSet<Product> products;
+	private HashSet<Product> products = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -72,7 +72,7 @@ public class Category {
 		return products;
 	}
 	
-	public void setProducts() {
+	public void setProducts(HashSet<Product> products) {
 		this.products = products;
 	}
 	

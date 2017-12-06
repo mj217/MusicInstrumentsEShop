@@ -43,8 +43,6 @@ public class Product {
 	@Column(name = "QuantityInStock")
 	private Integer quantityInStock;
 	
-	public Product() {}
-	
 	public Integer getId() {
 		return id;
 	}
