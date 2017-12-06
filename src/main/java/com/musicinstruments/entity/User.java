@@ -46,15 +46,19 @@ public class User {
 	
 	@OneToMany(mappedBy = "customer",
 				fetch = FetchType.LAZY)
-	private HashSet<Order> customerOrders;
+	private HashSet<Order> customerOrders = new HashSet<>();;
 	
 	@OneToMany(mappedBy = "manager",
 				fetch = FetchType.LAZY)
-	private HashSet<Order> managerOrders;
+	private HashSet<Order> managerOrders = new HashSet<>();;
 	
 	@OneToMany(mappedBy = "modifiedBy",
 				fetch = FetchType.LAZY)
-	private HashSet<OrderHistoryItem> orderHistoryItems;
+	private HashSet<OrderHistoryItem> orderHistoryItems = new HashSet<>();;
+	
+	@OneToMany(mappedBy = "customer",
+				fetch = FetchType.LAZY)
+	private HashSet<ShoppingCartItem> shoppingCartItems = new HashSet<>();;
 	
 	public Integer getId() {
 		return id;
@@ -142,5 +146,13 @@ public class User {
 	
 	public void setOrderHistoryItems(HashSet<OrderHistoryItem> orderHistoryItems) {
 		this.orderHistoryItems = orderHistoryItems;
+	}
+	
+	public HashSet<ShoppingCartItem> getShoppingCartItems() {
+		return shoppingCartItems;
+	}
+	
+	public void setShoppingCartItems(HashSet<ShoppingCartItem> shoppingCartItems) {
+		this.shoppingCartItems = shoppingCartItems;
 	}
 }

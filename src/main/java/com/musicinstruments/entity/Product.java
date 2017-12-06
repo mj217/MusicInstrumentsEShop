@@ -6,12 +6,14 @@ import java.util.HashSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -42,6 +44,13 @@ public class Product {
 	
 	@Column(name = "QuantityInStock")
 	private Integer quantityInStock;
+	
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+	private HashSet<ShoppingCartItem> shoppingCartItems = new HashSet<>();
+	
+	@OneToMany(mappedBy = "product",
+				fetch = FetchType.LAZY)
+	private HashSet<OrderItem> orderItems = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -82,4 +91,20 @@ public class Product {
 	public void setQuantityInStock(Integer quantityInStock) {
 		this.quantityInStock = quantityInStock;
 	} 
+	
+	public HashSet<ShoppingCartItem> getShoppingCartItems() {
+		return shoppingCartItems;
+	}
+	
+	public void setShoppingCartItems(HashSet<ShoppingCartItem> shoppingCartItems) {
+		this.shoppingCartItems = shoppingCartItems;
+	}
+	
+	public HashSet<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+	
+	public void setOrderItems(HashSet<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
 }

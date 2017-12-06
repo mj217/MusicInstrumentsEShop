@@ -41,7 +41,11 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order",
 			fetch = FetchType.LAZY)
-	HashSet<OrderHistoryItem> orderHistoryItems;
+	HashSet<OrderHistoryItem> orderHistoryItems = new HashSet<>();
+	
+	@OneToMany(mappedBy = "order",
+			fetch = FetchType.LAZY)
+	HashSet<OrderItem> orderItems = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -89,6 +93,14 @@ public class Order {
 	
 	public void setOrderHistoryItems(HashSet<OrderHistoryItem> orderHistoryItems) {
 		this.orderHistoryItems = orderHistoryItems;
+	}
+	
+	public HashSet<OrderItem> getOrderItems() {
+		return orderItems;
+	}
+	
+	public void setOrderItems(HashSet<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 
 }
