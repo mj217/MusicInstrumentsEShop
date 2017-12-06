@@ -5,6 +5,7 @@ import java.util.HashSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,8 @@ public class Category {
 	@JoinColumn(name = "ParentCategoryID")
 	private Category parentCategory;
 	
-	@OneToMany(mappedBy = "parentCategory")
+	@OneToMany(mappedBy = "parentCategory",
+				fetch = FetchType.EAGER)
 	private HashSet<Category> subCategories = new HashSet<Category>();
 	
 	@ManyToMany(mappedBy = "categories")

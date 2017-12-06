@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,8 +40,17 @@ public class User {
 	@Column(name = "UserState")
 	private UserState userState;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user",
+				fetch = FetchType.EAGER)
 	private HashSet<UserRole> userRoles = new HashSet<>();
+	
+	@OneToMany(mappedBy = "customer",
+				fetch = FetchType.LAZY)
+	private HashSet<Order> customerOrders;
+	
+	@OneToMany(mappedBy = "manager",
+				fetch = FetchType.LAZY)
+	private HashSet<Order> managerOrders;
 	
 	public Integer getId() {
 		return id;
@@ -104,5 +114,21 @@ public class User {
 	
 	public void setRoles(HashSet<UserRole> userRoles) {
 		this.userRoles = userRoles;
+	}
+	
+	public HashSet<Order> getCustomerOrders() {
+		return customerOrders;
+	}
+	
+	public void setCustomerOrders(HashSet<Order> customerOrders) {
+		this.customerOrders = customerOrders;
+	}
+	
+	public HashSet<Order> getManagerOrders() {
+		return managerOrders;
+	}
+	
+	public void setManagerOrders(HashSet<Order> managerOrders) {
+		this.managerOrders = managerOrders;
 	}
 }
