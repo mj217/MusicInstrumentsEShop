@@ -1,4 +1,4 @@
-package dao;
+package com.musicinstruments.dao;
 
 import java.util.List;
 
