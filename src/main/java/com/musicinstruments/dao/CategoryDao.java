@@ -29,18 +29,4 @@ public class CategoryDao {
 		return criteria.list();
 	}
 	
-	public Category getParentCategoryByID(Integer id) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
-		criteria.add(Restrictions.eq("id", id));
-		return ((Category) criteria.uniqueResult()).getParentCategory();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Category> getSubCategoriesByID(Integer id) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
-		criteria.add(Restrictions.eq("parentCategoryId", id));
-		return criteria.list();
-	}
 }
