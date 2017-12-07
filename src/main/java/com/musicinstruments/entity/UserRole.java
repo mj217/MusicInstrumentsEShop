@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.musicinstruments.enums.Role;
+import com.musicinstruments.utils.Role;
 
 @Entity
 @Table(name = "UserRole")

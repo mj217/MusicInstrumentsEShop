@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.musicinstruments.enums.OrderState;
+import com.musicinstruments.utils.OrderState;
 
 @Entity
 @Table(name = "Orders")

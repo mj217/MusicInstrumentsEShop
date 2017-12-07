@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.musicinstruments.enums.UserState;
+import com.musicinstruments.utils.UserState;
 
 @Entity
 @Table(name = "Users")

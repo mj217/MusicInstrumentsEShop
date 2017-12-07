@@ -1,4 +1,4 @@
-package com.musicinstruments.enums;
+package com.musicinstruments.utils;
 
 public enum UserState {
 	ACTIVE, INACTIVE;
