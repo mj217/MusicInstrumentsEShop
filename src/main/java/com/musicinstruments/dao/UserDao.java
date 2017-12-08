@@ -42,7 +42,7 @@ public class UserDao {
 		UserState userState = userStateDao.getUserStateByName(userStateName);
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("userState.id", userState.getId()));
-		List<User> users = (List<User>) criteria.list();
+		List<User> users = (List<User>) criteria.list( );
 		return users;
 	}
 }
