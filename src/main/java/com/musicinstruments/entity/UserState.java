@@ -26,7 +26,7 @@ public class UserState {
 	@OneToMany(mappedBy = "userState", fetch = FetchType.EAGER)
 	private HashSet<User> users = new HashSet<>();
 	
-	public Integer getId(Integer id) {
+	public Integer getId() {
 		return id;
 	}
 	
