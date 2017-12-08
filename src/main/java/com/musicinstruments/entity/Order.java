@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.musicinstruments.utils.OrderState;
-
 @Entity
 @Table(name = "Orders")
 public class Order {
@@ -25,7 +23,9 @@ public class Order {
 	@Column(name = "ID")
 	private Integer id;
 	
-	@Column(name = "OrderState")
+	
+	@ManyToOne
+	@JoinColumn(name = "OrderStateID", nullable = false)
 	private OrderState orderState;
 	
 	@Column(name = "DeliveryDate")

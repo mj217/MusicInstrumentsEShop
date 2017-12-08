@@ -2,16 +2,20 @@ package com.musicinstruments.entity;
 
 import java.util.HashSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.musicinstruments.utils.UserState;
 
 @Entity
 @Table(name = "Users")
@@ -37,28 +41,33 @@ public class User {
 	@Column(name = "Email")
 	private String email;
 	
-	@Column(name = "UserState")
+	@ManyToOne
+	@JoinColumn(name = "UserStateID", nullable = false)
 	private UserState userState;
 	
-	@OneToMany(mappedBy = "user",
-				fetch = FetchType.EAGER)
-	private HashSet<UserRole> userRoles = new HashSet<>();
+	@ManyToMany(cascade = {CascadeType.ALL})
+	@JoinTable(
+			name = "UserRoles",
+			joinColumns = { @JoinColumn(name = "UserID") },
+			inverseJoinColumns = { @JoinColumn(name = "RoleID") }
+	)
+	private HashSet<Role> roles = new HashSet<>();
 	
 	@OneToMany(mappedBy = "customer",
 				fetch = FetchType.LAZY)
-	private HashSet<Order> customerOrders = new HashSet<>();;
+	private HashSet<Order> customerOrders = new HashSet<>();
 	
 	@OneToMany(mappedBy = "manager",
 				fetch = FetchType.LAZY)
-	private HashSet<Order> managerOrders = new HashSet<>();;
+	private HashSet<Order> managerOrders = new HashSet<>();
 	
 	@OneToMany(mappedBy = "modifiedBy",
 				fetch = FetchType.LAZY)
-	private HashSet<OrderHistoryItem> orderHistoryItems = new HashSet<>();;
+	private HashSet<OrderHistoryItem> orderHistoryItems = new HashSet<>();
 	
 	@OneToMany(mappedBy = "customer",
 				fetch = FetchType.LAZY)
-	private HashSet<ShoppingCartItem> shoppingCartItems = new HashSet<>();;
+	private HashSet<ShoppingCartItem> shoppingCartItems = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -113,15 +122,15 @@ public class User {
 	}
 	
 	public void setUserState(UserState userState) {
-		this.userState = userState;
+		this. userState = userState;
 	}
 	
-	public HashSet<UserRole> getRoles() {
-		return userRoles;
+	public HashSet<Role> getRoles() {
+		return roles;
 	}
 	
-	public void setRoles(HashSet<UserRole> userRoles) {
-		this.userRoles = userRoles;
+	public void setRoles(HashSet<Role> roles) {
+		this.roles = roles;
 	}
 	
 	public HashSet<Order> getCustomerOrders() {

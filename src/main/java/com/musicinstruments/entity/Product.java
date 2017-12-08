@@ -30,7 +30,7 @@ public class Product {
 	
 	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(
-			name = "ProductCategory",
+			name = "ProductCategories",
 			joinColumns = { @JoinColumn(name = "ProductID") },
 			inverseJoinColumns = { @JoinColumn(name = "CategoryID") }
 	)

@@ -8,32 +8,31 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.musicinstruments.entity.Category;
+import com.musicinstruments.entity.Role;
 
 @Transactional
-public class CategoryDao {
+public class RoleDao {
 
 	private SessionFactory sessionFactory;
 	
-	public Category getCategoryByID(Integer id) {
+	public Role getRoleById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
+		Criteria criteria = session.createCriteria(Role.class);
 		criteria.add(Restrictions.eq("id", id));
-		return (Category) criteria.uniqueResult();
+		return (Role) criteria.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Category> getAllCategories() {
+	public List<Role> getAllRoles() {
 		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
+		Criteria criteria = session.createCriteria(Role.class);
 		return criteria.list();
 	}
 	
-	public Category getCategoryByName(String categoryName) {
+	public Role getRoleByName(String roleName) {
 		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
-		criteria.add(Restrictions.eq("name", categoryName));
-		return (Category) criteria.uniqueResult();
+		Criteria criteria = session.createCriteria(Role.class);
+		criteria.add(Restrictions.eq("name", roleName));
+		return (Role) criteria.uniqueResult();
 	}
-	
 }

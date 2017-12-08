@@ -1,31 +1,29 @@
 package com.musicinstruments.entity;
 
+import java.util.HashSet;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.musicinstruments.utils.Role;
-
 @Entity
-@Table(name = "UserRole")
-public class UserRole {
+@Table(name = "Roles")
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID")
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name = "UserID", nullable = false)
-	private User user;
-	
 	@Column(name = "Name")
-	private Role role;
+	private String name;
+	
+	@ManyToMany(mappedBy = "roles")
+	private HashSet<User> users = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -35,19 +33,19 @@ public class UserRole {
 		this.id = id;
 	}
 	
-	public User getUser() {
-		return user;
+	public String getName() {
+		return name;
 	}
 	
-	public void setUser(User user) {
-		this.user = user;
+	public void setName(String name) {
+		this. name = name;
 	}
 	
-	public Role getRole() {
-		return role;
+	public HashSet<User> getUsers() {
+		return users;
 	}
 	
-	public void setRole(Role role) {
-		this.role = role;
+	public void setUsers(HashSet<User> users) {
+		this.users = users;
 	}
 }
