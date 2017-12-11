@@ -11,16 +11,14 @@ public class ProductEngine {
 
 	private ProductDao productDao;
 	
-	public void createProduct(String name, Category category, BigDecimal price, 
+	public void createProduct(String name, BigDecimal price, 
 			String supplier, Integer quantityInStock) {
 		Product product = new Product();
-		HashSet<Category> categories = new HashSet<>();
-		categories.add(category);
 		product.setName(name);
-		product.setCategories(categories);
 		product.setPrice(price);
 		product.setSupplier(supplier);
 		product.setQuantityInStock(quantityInStock);
+		
 		productDao.save(product);
 	}
 	
