@@ -6,6 +6,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 //import com.musicinstruments.entity.Role;
@@ -13,26 +16,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.musicinstruments.entity.User;
 
-@Transactional
+@Repository
 public class UserDao implements Dao<User, Integer> {
 
+	@Autowired
 	private SessionFactory sessionFactory;
 	//private RoleDao roleDao;
 	//private UserStateDao userStateDao;
 	
 	@Override
+	@Transactional
 	public void persist(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(user);
 	}
 	
 	@Override
+	@Transactional
 	public void update(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(user);
 	}
 	
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public User findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(User.class);
@@ -41,12 +48,14 @@ public class UserDao implements Dao<User, Integer> {
 	}
 	
 	@Override
+	@Transactional
 	public void delete(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(user);
 	}
 	
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@SuppressWarnings("unchecked")
 	public List<User> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -55,6 +64,7 @@ public class UserDao implements Dao<User, Integer> {
 	}
 	
 	@Override
+	@Transactional
 	public void deleteAll() {
 		List<User> entityList = findAll();
 		for(User entity : entityList) {
