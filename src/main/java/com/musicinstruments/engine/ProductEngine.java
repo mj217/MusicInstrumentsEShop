@@ -11,27 +11,20 @@ public class ProductEngine {
 
 	private ProductDao productDao;
 	
-	public void createProduct(String name, BigDecimal price, 
-			String supplier, Integer quantityInStock) {
-		Product product = new Product();
-		product.setName(name);
-		product.setPrice(price);
-		product.setSupplier(supplier);
-		product.setQuantityInStock(quantityInStock);
-		
-		productDao.save(product);
+	public void createProduct(Product product) {
+		productDao.persist(product);
 	}
 	
 	public void updateProduct(Product product) {
-		productDao.save(product);
+		productDao.update(product);
 	}
 	
 	public void deleteProduct(Product product) {
-		productDao.deleteById(product.getId());
+		productDao.delete(product);
 	}
 	
 	public void assignProductToCategory(Product product, Category category) {
-		product.getCategories().add(category);
+		productDao.findById(product.getId());
 	}
 	
 	public void unassignProductFromCategory(Product product, Category category) {
