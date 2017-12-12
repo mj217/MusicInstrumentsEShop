@@ -8,24 +8,61 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.musicinstruments.entity.Role;
+//import com.musicinstruments.entity.Role;
+//import com.musicinstruments.entity.UserState;
+
 import com.musicinstruments.entity.User;
-import com.musicinstruments.entity.UserState;
 
 @Transactional
-public class UserDao {
+public class UserDao implements Dao<User, Integer> {
 
 	private SessionFactory sessionFactory;
-	private RoleDao roleDao;
-	private UserStateDao userStateDao;
+	//private RoleDao roleDao;
+	//private UserStateDao userStateDao;
 	
-	public User getUserByID(Integer id) {
+	@Override
+	public void persist(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(user);
+	}
+	
+	@Override
+	public void update(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(user);
+	}
+	
+	@Override
+	public User findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("id", id));
 		return (User) criteria.uniqueResult();
 	}
 	
+	@Override
+	public void delete(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(user);
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<User> findAll() {
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(User.class);
+		return criteria.list();
+	}
+	
+	@Override
+	public void deleteAll() {
+		List<User> entityList = findAll();
+		for(User entity : entityList) {
+			delete(entity);
+		}
+	}
+	
+	/*
 	@SuppressWarnings("unchecked")
 	public List<User> getUsersByRoleName(String roleName) {
 		Session session = sessionFactory.getCurrentSession();
@@ -34,8 +71,9 @@ public class UserDao {
 		criteria.add(Restrictions.eq("role.id", role.getId()));
 		List<User> users = (List<User>) criteria.list();
 		return users;
-	}
+	}*/
 	
+	/*
 	@SuppressWarnings("unchecked")
 	public List<User> getUsersByUserStateName(String userStateName) {
 		Session session = sessionFactory.getCurrentSession();
@@ -44,5 +82,5 @@ public class UserDao {
 		criteria.add(Restrictions.eq("userState.id", userState.getId()));
 		List<User> users = (List<User>) criteria.list( );
 		return users;
-	}
+	}*/
 }

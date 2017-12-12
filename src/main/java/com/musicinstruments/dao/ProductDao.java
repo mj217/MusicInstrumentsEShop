@@ -15,7 +15,7 @@ import com.musicinstruments.entity.Product;
 
 @Repository
 @Transactional
-public class ProductDao {
+public class ProductDao implements Dao<Product, Integer> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -23,7 +23,20 @@ public class ProductDao {
 	@Autowired
 	private CategoryDao categoryDao;
 	
-	public Product findProductByID(Integer id) {
+	@Override
+	public void persist(Product product) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(product);
+	}
+	
+	@Override
+	public void update(Product product) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(product);
+	}
+	
+	@Override
+	public Product findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Product product = (Product) session.createCriteria(Product.class)
 				.add(Restrictions.eq("id", id))
@@ -31,14 +44,30 @@ public class ProductDao {
 		return product;
 	}
 	
+	@Override
+	public void delete(Product product) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(product);
+	}
+	
+	@Override
 	@SuppressWarnings("unchecked")
-	public List<Product> findAllProducts() {
+	public List<Product> findAll() {
 		Session session = sessionFactory.getCurrentSession();
 		List<Product> result = session.createCriteria(Product.class)
 				.list();
 		return result;
 	}
 	
+	@Override
+	public void deleteAll() {
+		List<Product> entityList = findAll();
+		for(Product entity : entityList) {
+			delete(entity);
+		}
+	}
+	
+	/*
 	@SuppressWarnings("unchecked")
 	public List<Product> findProductsByCategoryName(String categoryName) {
 		Session session = sessionFactory.getCurrentSession();
@@ -47,21 +76,5 @@ public class ProductDao {
 		criteria.add(Restrictions.eq("category.id", category.getId()));
 		List<Product> result = (List<Product>) criteria.list();
 		return result;
-	}
-	
-	public void save(Product product) {
-		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(product);
-	}
-	
-	public void deleteById(Integer id) {
-		Session session = sessionFactory.getCurrentSession();
-		Product product = (Product) session.createCriteria(Product.class)
-				.add(Restrictions.eq("id", id))
-				.uniqueResult();
-
-		if(product != null) {
-			session.delete(product);
-		}
-	}
+	}*/
 }

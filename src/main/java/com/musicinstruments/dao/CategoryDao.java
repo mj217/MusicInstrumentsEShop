@@ -11,29 +11,50 @@ import org.springframework.transaction.annotation.Transactional;
 import com.musicinstruments.entity.Category;
 
 @Transactional
-public class CategoryDao {
+public class CategoryDao implements Dao<Category, Integer> {
 
 	private SessionFactory sessionFactory;
 	
-	public Category getCategoryByID(Integer id) {
+	@Override
+	public void persist(Category category) {
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(category);
+	}
+	
+	@Override
+	public void update(Category category) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(category);
+	}
+	
+	@Override
+	public Category findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Category.class);
 		criteria.add(Restrictions.eq("id", id));
 		return (Category) criteria.uniqueResult();
 	}
 	
+	@Override
+	public void delete(Category category) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(category);
+	}
+	
+	@Override
 	@SuppressWarnings("unchecked")
-	public List<Category> getAllCategories() {
+	public List<Category> findAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Category.class);
 		return criteria.list();
 	}
 	
-	public Category getCategoryByName(String categoryName) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
-		criteria.add(Restrictions.eq("name", categoryName));
-		return (Category) criteria.uniqueResult();
+	@Override
+	public void deleteAll() {
+		List<Category> entityList = findAll();
+		for(Category entity: entityList) {
+			delete(entity);
+		}
 	}
 	
 }
