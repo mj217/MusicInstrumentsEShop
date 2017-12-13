@@ -67,12 +67,12 @@ public class UserStateDao implements Dao<UserState, Integer> {
 		}
 	}
 	
-	/*
-	public UserState getUserStateByName(String userStateName) {
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public UserState findByName(String userStateName) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(UserState.class);
 		criteria.add(Restrictions.eq("name", userStateName));
 		return (UserState) criteria.uniqueResult();
-	}*/
+	}
 
 }

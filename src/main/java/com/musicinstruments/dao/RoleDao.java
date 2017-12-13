@@ -67,8 +67,8 @@ public class RoleDao implements Dao<Role, Integer> {
 		}
 	}
 	
-	/*
-	public Role getRoleByName(String roleName) {
+	/*@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Role findByName(String roleName) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Role.class);
 		criteria.add(Restrictions.eq("name", roleName));

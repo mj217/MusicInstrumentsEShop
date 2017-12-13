@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.musicinstruments.entity.ShoppingCartItem;
+
 @Repository
-public class ShoppingCartItem implements Dao<ShoppingCartItem, Integer> {
+public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 
 	@Autowired
 	private SessionFactory sessionFactory;

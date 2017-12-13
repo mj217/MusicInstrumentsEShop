@@ -15,27 +15,25 @@ import org.springframework.transaction.annotation.Transactional;
 import com.musicinstruments.entity.Product;
 
 @Repository
+@Transactional(propagation = Propagation.MANDATORY)
 public class ProductDao implements Dao<Product, Integer> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	@Override
-	@Transactional
 	public void persist(Product product) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(product);
 	}
 	
 	@Override
-	@Transactional
 	public void update(Product product) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(product);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Product findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Product product = (Product) session.createCriteria(Product.class)
@@ -45,14 +43,12 @@ public class ProductDao implements Dao<Product, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void delete(Product product) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(product);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -62,7 +58,6 @@ public class ProductDao implements Dao<Product, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void deleteAll() {
 		List<Product> entityList = findAll();
 		for(Product entity : entityList) {
