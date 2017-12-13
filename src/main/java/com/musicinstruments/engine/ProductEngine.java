@@ -85,7 +85,7 @@ public class ProductEngine {
 	@Transactional
 	public void removeProductFromShoppingCart(Product product, ShoppingCartItem shoppingCartItem) {
 		product.getShoppingCartItems().remove(shoppingCartItem);
-		shoppingCartItem.setProduct(product);
+		shoppingCartItem.setProduct(null);
 		productDao.update(product);
 		shoppingCartItemDao.delete(shoppingCartItem);
 	}
