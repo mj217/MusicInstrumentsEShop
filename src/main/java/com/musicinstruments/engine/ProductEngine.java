@@ -58,6 +58,7 @@ public class ProductEngine {
 		return product.getCategories();
 	}
 	
+	@Transactional
 	public void addProductToShoppingCart(Product product, ShoppingCartItem shoppingCartItem) {
 		product.getShoppingCartItems().add(shoppingCartItem);
 		shoppingCartItem.setProduct(product);
@@ -65,6 +66,7 @@ public class ProductEngine {
 		shoppingCartItemDao.update(shoppingCartItem);
 	}
 	
+	@Transactional
 	public void removeProductFromShoppingCart(Product product, ShoppingCartItem shoppingCartItem) {
 		product.getShoppingCartItems().remove(shoppingCartItem);
 		shoppingCartItem.setProduct(product);
@@ -72,9 +74,25 @@ public class ProductEngine {
 		shoppingCartItemDao.delete(shoppingCartItem);
 	}
 	
+	@Transactional
 	public void updateShoppingCartProductQuantity(ShoppingCartItem shoppingCartItem, Integer quantity) {
 		Integer currentQuantity = shoppingCartItem.getQuantity();
 		shoppingCartItem.setQuantity(currentQuantity + quantity);
 		shoppingCartItemDao.update(shoppingCartItem);
+	}
+	
+	@Transactional
+	public void createCategory(Category category) {
+		categoryDao.persist(category);
+	}
+	
+	@Transactional
+	public void updateCategory(Category category) {
+		categoryDao.update(category);
+	}
+	
+	@Transactional
+	public void deleteCategory(Category category) {
+		categoryDao.delete(category);
 	}
 }
