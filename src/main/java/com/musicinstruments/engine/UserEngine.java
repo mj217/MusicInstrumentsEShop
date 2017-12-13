@@ -1,6 +1,7 @@
 package com.musicinstruments.engine;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.musicinstruments.dao.RoleDao;
 import com.musicinstruments.dao.UserDao;
@@ -9,8 +10,11 @@ import com.musicinstruments.entity.Role;
 import com.musicinstruments.entity.User;
 import com.musicinstruments.entity.UserState;
 
+@Service
 public class UserEngine {
 
+	private static UserEngine instance;
+	
 	@Autowired 
 	private UserDao userDao;
 	
@@ -19,6 +23,17 @@ public class UserEngine {
 	
 	@Autowired
 	private UserStateDao userStateDao;
+	
+	private UserEngine() {
+		
+	}
+	
+	public static UserEngine getInstance() {
+		if (instance == null) {
+			return new UserEngine();
+		}
+		return instance;
+	}
 	
 	public void register(User user) {
 		userDao.persist(user);

@@ -67,11 +67,11 @@ public class OrderStateDao implements Dao<OrderState, Integer> {
 		}
 	}
 	
-	/*
-	public OrderState getOrderStateByName(String orderStateName) {
+	@Transactional
+	public OrderState findByName(String orderStateName) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(OrderState.class);
 		criteria.add(Restrictions.eq("name", orderStateName));
 		return (OrderState) criteria.uniqueResult();
-	}*/
+	}
 }

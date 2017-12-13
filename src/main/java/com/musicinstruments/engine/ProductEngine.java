@@ -3,6 +3,7 @@ package com.musicinstruments.engine;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.musicinstruments.dao.CategoryDao;
@@ -12,8 +13,11 @@ import com.musicinstruments.entity.Category;
 import com.musicinstruments.entity.Product;
 import com.musicinstruments.entity.ShoppingCartItem;
 
+@Service
 public class ProductEngine {
 
+	private static ProductEngine instance;
+	
 	@Autowired
 	private ProductDao productDao;
 	
@@ -22,6 +26,18 @@ public class ProductEngine {
 	
 	@Autowired
 	private ShoppingCartItemDao shoppingCartItemDao;
+	
+	private ProductEngine() {
+		
+	}
+	
+	public static ProductEngine getInstance() {
+		if (instance == null) {
+			return new ProductEngine();
+		}
+		
+		return instance;
+	}
 	
 	@Transactional
 	public void createProduct(Product product) {
