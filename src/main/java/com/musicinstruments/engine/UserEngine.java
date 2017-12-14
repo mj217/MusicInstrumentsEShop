@@ -2,6 +2,7 @@ package com.musicinstruments.engine;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.musicinstruments.dao.RoleDao;
 import com.musicinstruments.dao.UserDao;
@@ -35,14 +36,17 @@ public class UserEngine {
 		return instance;
 	}
 	
+	@Transactional
 	public void register(User user) {
 		userDao.persist(user);
 	}
 	
+	@Transactional
 	public void updateProfile(User user) {
 		userDao.update(user);
 	}
 	
+	@Transactional
 	public void assingUserToRole(User user, Role role) {
 		user.getRoles().add(role);
 		role.getUsers().add(user);
@@ -50,6 +54,7 @@ public class UserEngine {
 		roleDao.update(role);
 	}
 	
+	@Transactional
 	public void unassignUserFromRole(User user, Role role) {
 		user.getRoles().remove(role);
 		role.getUsers().remove(user);
@@ -57,6 +62,7 @@ public class UserEngine {
 		roleDao.update(role);
 	}
 	
+	@Transactional
 	public void deactivateUser(User user) {
 		UserState userState = userStateDao.findByName("Inactive");
 		user.setUserState(userState);

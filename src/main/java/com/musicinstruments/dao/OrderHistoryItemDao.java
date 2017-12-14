@@ -14,27 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 import com.musicinstruments.entity.OrderHistoryItem;
 
 @Repository
+@Transactional(propagation = Propagation.MANDATORY)
 public class OrderHistoryItemDao implements Dao<OrderHistoryItem, Integer> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	@Override
-	@Transactional
 	public void persist(OrderHistoryItem orderHistoryItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(orderHistoryItem);
 	}
 	
 	@Override
-	@Transactional
 	public void update(OrderHistoryItem orderHistoryItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(orderHistoryItem);
 	}
 	
 	@Override 
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public OrderHistoryItem findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(OrderHistoryItem.class);
@@ -43,7 +41,6 @@ public class OrderHistoryItemDao implements Dao<OrderHistoryItem, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void delete(OrderHistoryItem orderHistoryItem) {
 		/*Session session = sessionFactory.getCurrentSession();
 		session.delete(orderHistoryItem);*/

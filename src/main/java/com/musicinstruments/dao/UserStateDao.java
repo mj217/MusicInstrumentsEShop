@@ -14,27 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 import com.musicinstruments.entity.UserState;
 
 @Repository
+@Transactional(propagation = Propagation.MANDATORY)
 public class UserStateDao implements Dao<UserState, Integer> {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	@Override
-	@Transactional
 	public void persist(UserState userState) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(userState);
 	}
 	
 	@Override
-	@Transactional
 	public void update(UserState userState) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(userState);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public UserState findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(UserState.class);
@@ -43,14 +41,12 @@ public class UserStateDao implements Dao<UserState, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void delete(UserState userState) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(userState);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@SuppressWarnings("unchecked")
 	public List<UserState> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -59,7 +55,6 @@ public class UserStateDao implements Dao<UserState, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void deleteAll() {
 		List<UserState> entityList = findAll();
 		for(UserState entity : entityList) {
@@ -67,7 +62,6 @@ public class UserStateDao implements Dao<UserState, Integer> {
 		}
 	}
 	
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public UserState findByName(String userStateName) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(UserState.class);

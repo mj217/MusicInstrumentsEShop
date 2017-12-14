@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.musicinstruments.entity.User;
 
 @Repository
+@Transactional(propagation = Propagation.MANDATORY)
 public class UserDao implements Dao<User, Integer> {
 
 	@Autowired
@@ -25,21 +26,18 @@ public class UserDao implements Dao<User, Integer> {
 	//private UserStateDao userStateDao;
 	
 	@Override
-	@Transactional
 	public void persist(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(user);
 	}
 	
 	@Override
-	@Transactional
 	public void update(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(user);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public User findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(User.class);
@@ -48,14 +46,12 @@ public class UserDao implements Dao<User, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void delete(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(user);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@SuppressWarnings("unchecked")
 	public List<User> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -64,7 +60,6 @@ public class UserDao implements Dao<User, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void deleteAll() {
 		List<User> entityList = findAll();
 		for(User entity : entityList) {

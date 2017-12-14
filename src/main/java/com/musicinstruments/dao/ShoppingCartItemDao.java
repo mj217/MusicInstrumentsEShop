@@ -14,27 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 import com.musicinstruments.entity.ShoppingCartItem;
 
 @Repository
+@Transactional(propagation = Propagation.MANDATORY)
 public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	@Override
-	@Transactional
 	public void persist(ShoppingCartItem shoppingCartItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(shoppingCartItem);
 	}
 	
 	@Override
-	@Transactional
 	public void update(ShoppingCartItem shoppingCartItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(shoppingCartItem);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public ShoppingCartItem findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(ShoppingCartItem.class);
@@ -43,14 +41,12 @@ public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void delete(ShoppingCartItem shoppingCartItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(shoppingCartItem);
 	}
 	
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@SuppressWarnings("unchecked")
 	public List<ShoppingCartItem> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -59,7 +55,6 @@ public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 	}
 	
 	@Override
-	@Transactional
 	public void deleteAll() {
 		List<ShoppingCartItem> entityList = findAll();
 		for(ShoppingCartItem entity : entityList) {
