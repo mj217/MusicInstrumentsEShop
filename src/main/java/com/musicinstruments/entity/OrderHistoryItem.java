@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "OrderHistory")
+@Table(name = "OrderHistoryItems")
 public class OrderHistoryItem {
 
 	@Id
