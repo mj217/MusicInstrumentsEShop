@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,23 +52,23 @@ public class User {
 			joinColumns = { @JoinColumn(name = "UserID") },
 			inverseJoinColumns = { @JoinColumn(name = "RoleID") }
 	)
-	private HashSet<Role> roles = new HashSet<>();
+	private Set<Role> roles = new HashSet<>();
 	
 	@OneToMany(mappedBy = "customer",
 				fetch = FetchType.LAZY)
-	private HashSet<Order> customerOrders = new HashSet<>();
+	private Set<Order> customerOrders = new HashSet<>();
 	
 	@OneToMany(mappedBy = "manager",
 				fetch = FetchType.LAZY)
-	private HashSet<Order> managerOrders = new HashSet<>();
+	private Set<Order> managerOrders = new HashSet<>();
 	
 	@OneToMany(mappedBy = "modifiedBy",
 				fetch = FetchType.LAZY)
-	private HashSet<OrderHistoryItem> orderHistoryItems = new HashSet<>();
+	private Set<OrderHistoryItem> orderHistoryItems = new HashSet<>();
 	
 	@OneToMany(mappedBy = "customer",
 				fetch = FetchType.LAZY)
-	private HashSet<ShoppingCartItem> shoppingCartItems = new HashSet<>();
+	private Set<ShoppingCartItem> shoppingCartItems = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -125,7 +126,7 @@ public class User {
 		this. userState = userState;
 	}
 	
-	public HashSet<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 	
@@ -133,7 +134,7 @@ public class User {
 		this.roles = roles;
 	}
 	
-	public HashSet<Order> getCustomerOrders() {
+	public Set<Order> getCustomerOrders() {
 		return customerOrders;
 	}
 	
@@ -141,7 +142,7 @@ public class User {
 		this.customerOrders = customerOrders;
 	}
 	
-	public HashSet<Order> getManagerOrders() {
+	public Set<Order> getManagerOrders() {
 		return managerOrders;
 	}
 	
@@ -149,7 +150,7 @@ public class User {
 		this.managerOrders = managerOrders;
 	}
 	
-	public HashSet<OrderHistoryItem> getOrderHistoryItems() {
+	public Set<OrderHistoryItem> getOrderHistoryItems() {
 		return orderHistoryItems;
 	}
 	
@@ -157,7 +158,7 @@ public class User {
 		this.orderHistoryItems = orderHistoryItems;
 	}
 	
-	public HashSet<ShoppingCartItem> getShoppingCartItems() {
+	public Set<ShoppingCartItem> getShoppingCartItems() {
 		return shoppingCartItems;
 	}
 	

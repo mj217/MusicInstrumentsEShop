@@ -1,6 +1,8 @@
 package com.musicinstruments.engine;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,7 +73,7 @@ public class ProductEngine {
 		categoryDao.update(category);
 	}
 	
-	public HashSet<Category> getProductCategories(Product product) {
+	public Set<Category> getProductCategories(Product product) {
 		return product.getCategories();
 	}
 	

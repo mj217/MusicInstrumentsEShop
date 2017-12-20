@@ -2,6 +2,7 @@ package com.musicinstruments.entity;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,11 +42,11 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order",
 			fetch = FetchType.LAZY)
-	HashSet<OrderHistoryItem> orderHistoryItems = new HashSet<>();
+	Set<OrderHistoryItem> orderHistoryItems = new HashSet<>();
 	
 	@OneToMany(mappedBy = "order",
 			fetch = FetchType.LAZY)
-	HashSet<OrderItem> orderItems = new HashSet<>();
+	Set<OrderItem> orderItems = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -87,7 +88,7 @@ public class Order {
 		this.manager = manager;
 	} 
 	
-	public HashSet<OrderHistoryItem> getOrderHistoryItems() {
+	public Set<OrderHistoryItem> getOrderHistoryItems() {
 		return orderHistoryItems;
 	}
 	
@@ -95,7 +96,7 @@ public class Order {
 		this.orderHistoryItems = orderHistoryItems;
 	}
 	
-	public HashSet<OrderItem> getOrderItems() {
+	public Set<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 	

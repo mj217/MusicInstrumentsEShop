@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,10 +34,10 @@ public class Category {
 	
 	@OneToMany(mappedBy = "parentCategory",
 				fetch = FetchType.EAGER)
-	private HashSet<Category> subCategories = new HashSet<Category>();
+	private Set<Category> subCategories = new HashSet<Category>();
 	
 	@ManyToMany(mappedBy = "categories")
-	private HashSet<Product> products = new HashSet<>();
+	private Set<Product> products = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -62,7 +63,7 @@ public class Category {
 		this.parentCategory = parentCategory;
 	}
 	
-	public HashSet<Category> getSubCategories() {
+	public Set<Category> getSubCategories() {
 		return subCategories;
 	}
 	
@@ -70,7 +71,7 @@ public class Category {
 		this.subCategories = subCategories;
 	}
 	
-	public HashSet<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 	

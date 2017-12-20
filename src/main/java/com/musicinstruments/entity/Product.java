@@ -2,6 +2,7 @@ package com.musicinstruments.entity;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,7 +35,7 @@ public class Product {
 			joinColumns = { @JoinColumn(name = "ProductID") },
 			inverseJoinColumns = { @JoinColumn(name = "CategoryID") }
 	)
-	private HashSet<Category> categories = new HashSet<>();
+	private Set<Category> categories = new HashSet<>();
 	
 	@Column(name = "Price")
 	private BigDecimal price;
@@ -46,11 +47,11 @@ public class Product {
 	private Integer quantityInStock;
 	
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-	private HashSet<ShoppingCartItem> shoppingCartItems = new HashSet<>();
+	private Set<ShoppingCartItem> shoppingCartItems = new HashSet<>();
 	
 	@OneToMany(mappedBy = "product",
 				fetch = FetchType.LAZY)
-	private HashSet<OrderItem> orderItems = new HashSet<>();
+	private Set<OrderItem> orderItems = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -68,7 +69,7 @@ public class Product {
 		this.name = name;
 	}
 	
-	public HashSet<Category> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
 	
@@ -100,7 +101,7 @@ public class Product {
 		this.quantityInStock = quantityInStock;
 	} 
 	
-	public HashSet<ShoppingCartItem> getShoppingCartItems() {
+	public Set<ShoppingCartItem> getShoppingCartItems() {
 		return shoppingCartItems;
 	}
 	
@@ -108,7 +109,7 @@ public class Product {
 		this.shoppingCartItems = shoppingCartItems;
 	}
 	
-	public HashSet<OrderItem> getOrderItems() {
+	public Set<OrderItem> getOrderItems() {
 		return orderItems;
 	}
 	

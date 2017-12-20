@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class UserState {
 	private String name;
 	
 	@OneToMany(mappedBy = "userState", fetch = FetchType.EAGER)
-	private HashSet<User> users = new HashSet<>();
+	private Set<User> users = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -42,7 +43,7 @@ public class UserState {
 		this.name = name;
 	}
 	
-	public HashSet<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 	

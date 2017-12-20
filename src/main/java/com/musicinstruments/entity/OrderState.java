@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +25,10 @@ public class OrderState {
 	private String name;
 	
 	@OneToMany(mappedBy = "orderState", fetch = FetchType.EAGER)
-	private HashSet<Order> orders = new HashSet<>();
+	private Set<Order> orders = new HashSet<>();
 	
 	@OneToMany(mappedBy = "orderState", fetch = FetchType.EAGER)
-	private HashSet<OrderHistoryItem> orderHistoryItems = new HashSet<>();
+	private Set<OrderHistoryItem> orderHistoryItems = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -45,7 +46,7 @@ public class OrderState {
 		this. name = name;
 	}
 	
-	public HashSet<Order> getOrders() {
+	public Set<Order> getOrders() {
 		return orders;
 	}
 	
@@ -53,7 +54,7 @@ public class OrderState {
 		this.orders = orders;
 	}
 	
-	public HashSet<OrderHistoryItem> getOrderHistoryItems() {
+	public Set<OrderHistoryItem> getOrderHistoryItems() {
 		return orderHistoryItems;
 	}
 	

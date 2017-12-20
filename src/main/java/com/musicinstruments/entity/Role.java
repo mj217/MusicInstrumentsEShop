@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Role {
 	private String name;
 	
 	@ManyToMany(mappedBy = "roles")
-	private HashSet<User> users = new HashSet<>();
+	private Set<User> users = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -41,7 +42,7 @@ public class Role {
 		this. name = name;
 	}
 	
-	public HashSet<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 	

@@ -24,7 +24,8 @@ public class OrderHistoryItem {
 	@JoinColumn(name = "OrderID", nullable = false)
 	private Order order;
 	
-	@Column(name = "OrderState")
+	@ManyToOne
+	@JoinColumn(name = "OrderStateID", nullable = false)
 	private OrderState orderState;
 	
 	@ManyToOne

@@ -18,7 +18,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan("com.musicinstruments.config")
+@ComponentScan("com.musicinstruments")
 @PropertySource({"classpath:ds-hibernate-cfg.properties"})
 @EnableTransactionManagement
 public class ApplicationContextConfig {
