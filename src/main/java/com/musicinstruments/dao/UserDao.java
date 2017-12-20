@@ -66,6 +66,12 @@ public class UserDao implements Dao<User, Integer> {
 			delete(entity);
 		}
 	}
+
+	@Override
+	public User findByName(String name) {
+		return null;
+		
+	}
 	
 	/*
 	@SuppressWarnings("unchecked")

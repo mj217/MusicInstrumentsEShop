@@ -11,7 +11,7 @@
   <properties>
   	<hibernate.version>4.3.10.Final</hibernate.version>
   	<mssql.connector>5.1.34</mssql.connector>
-	<spring.version>5.0.1.RELEASE</spring.version>
+	<spring.version>4.3.10.RELEASE</spring.version>
   	<jdk.version>1.8</jdk.version>
   </properties>
   

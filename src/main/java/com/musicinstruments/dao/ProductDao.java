@@ -64,6 +64,12 @@ public class ProductDao implements Dao<Product, Integer> {
 			delete(entity);
 		}
 	}
+
+	@Override
+	public Product findByName(String name) {
+		return null;
+		
+	}
 	
 	/*
 	@SuppressWarnings("unchecked")

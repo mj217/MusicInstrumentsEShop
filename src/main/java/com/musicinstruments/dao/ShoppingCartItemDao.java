@@ -61,4 +61,9 @@ public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 			delete(entity);
 		}
 	}
+
+	@Override
+	public ShoppingCartItem findByName(String name) {
+		return null;
+	}
 }

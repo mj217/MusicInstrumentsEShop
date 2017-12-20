@@ -3,6 +3,8 @@ package com.musicinstruments.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.musicinstruments.entity.Order;
+
 public interface Dao<T, Id extends Serializable> {
 
 	public void persist(T entity) ;
@@ -16,4 +18,6 @@ public interface Dao<T, Id extends Serializable> {
 	public List<T> findAll();
 	
 	public void deleteAll();
+	
+	public T findByName(String name);
 }

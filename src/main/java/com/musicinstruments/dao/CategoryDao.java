@@ -61,5 +61,10 @@ public class CategoryDao implements Dao<Category, Integer> {
 			delete(entity);
 		}
 	}
+
+	@Override
+	public Category findByName(String name) {
+		return null;		
+	}
 	
 }

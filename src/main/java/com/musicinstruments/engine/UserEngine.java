@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.musicinstruments.dao.Dao;
 import com.musicinstruments.dao.RoleDao;
 import com.musicinstruments.dao.UserDao;
 import com.musicinstruments.dao.UserStateDao;
@@ -17,15 +18,15 @@ public class UserEngine {
 	private static UserEngine instance;
 	
 	@Autowired 
-	private UserDao userDao;
+	private Dao<User, Integer> userDao;
 	
 	@Autowired 
-	private RoleDao roleDao;
+	private Dao<Role, Integer> roleDao;
 	
 	@Autowired
-	private UserStateDao userStateDao;
+	private Dao<UserState, Integer> userStateDao;
 	
-	private UserEngine() {
+	public UserEngine() {
 		
 	}
 	

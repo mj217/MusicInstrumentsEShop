@@ -11,55 +11,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ComponentScan("com.musicinstruments")
+@ComponentScan("com.musicinstruments.config")
+@PropertySource({"classpath:ds-hibernate-cfg.properties"})
 @EnableTransactionManagement
 public class ApplicationContextConfig {
 
+	@Autowired Environment env;
+	
 	// Bean configurations
 	@Bean(name = "DataSource")
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("net.sourceforge.jtds.jdbc.Driver");
-		dataSource.setUrl("jdbc:jtds:sqlserver://localhost:1433/MusicInstrumentsEShop;"
-				+ "instance=SQLEXPRESS01");
-		dataSource.setUsername("sa");
-		dataSource.setPassword("PasSWorD@3");
+		dataSource.setDriverClassName(env.getProperty("ds.databasedriver"));
+		dataSource.setUrl(env.getProperty("ds.url"));
+		dataSource.setUsername(env.getProperty("ds.username"));
+		dataSource.setPassword(env.getProperty("ds.password"));
 		
 		return dataSource;
 	}
 	
 	@Autowired
 	@Bean(name = "sessionFactory")
-	public SessionFactory getSessionFactory(DataSource dataSource) throws IOException {
-		LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-		factoryBean.setPackagesToScan(new String [] {"com.musicinstruments.entity" });
-		factoryBean.setDataSource(dataSource);
-		factoryBean.setHibernateProperties(getHibernateProperties());
-		factoryBean.afterPropertiesSet();
-		
-		SessionFactory sf = factoryBean.getObject();
-		return sf;
+    public SessionFactory hibernateSessionFactory(DataSource dataSource) {
+        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
+        factoryBean.setDataSource(dataSource);
+        factoryBean.setPackagesToScan(new String[] { 
+                  "com.musicinstruments.entity" 
+        });
+        factoryBean.setHibernateProperties(hibernateProperties());
+
+        SessionFactory sessionFactory = factoryBean.getObject();
+        return sessionFactory;
+    }
+	
+	private Properties hibernateProperties() {
+		return new Properties() {
+			{
+				setProperty("hibernate.hbm2ddl.auto",
+						env.getProperty("hibernate.hbm2ddl.auto"));
+				setProperty("hibernate.dialect",
+						env.getProperty("hibernate.dialect"));
+				setProperty("current_session_context_class",
+						env.getProperty("true"));
+				setProperty("hibernate.globally_quoted_identifiers",
+						"true");
+			}
+		};
 	}
 	
-	private Properties getHibernateProperties() {
-		Properties properties = new Properties();
-		properties.put("hibernate.show_sql", "true");
-		properties.put("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
-		
-		return properties;
-	}
-	
+	@Bean
 	@Autowired
-	@Bean(name = "transactionManager")
-	public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-		
-		HibernateTransactionManager transactionManager = new HibernateTransactionManager(
-				sessionFactory);
-		return transactionManager;
+	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+	  
+		HibernateTransactionManager txManager = new HibernateTransactionManager();
+		txManager.setSessionFactory(sessionFactory);
+
+		return txManager;
 	}
 }

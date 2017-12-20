@@ -61,6 +61,12 @@ public class RoleDao implements Dao<Role, Integer> {
 			delete(entity);
 		}
 	}
+
+	@Override
+	public Role findByName(String name) {
+		return null;
+		
+	}
 	
 	/*@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Role findByName(String roleName) {

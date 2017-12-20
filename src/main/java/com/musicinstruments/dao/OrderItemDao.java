@@ -61,4 +61,10 @@ public class OrderItemDao implements Dao<OrderItem, Integer> {
 			delete(entity);
 		}
 	}
+
+	@Override
+	public OrderItem findByName(String name) {
+		return null;
+		
+	}
 }

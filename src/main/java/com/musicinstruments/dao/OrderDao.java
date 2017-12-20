@@ -63,5 +63,11 @@ public class OrderDao implements Dao<Order, Integer> {
 		}
 		
 	}
+
+	@Override
+	public Order findByName(String name) {
+		return null;
+		
+	}
 	
 }

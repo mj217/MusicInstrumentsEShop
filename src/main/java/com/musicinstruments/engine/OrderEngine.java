@@ -1,11 +1,14 @@
 package com.musicinstruments.engine;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
+import com.musicinstruments.dao.Dao;
 import com.musicinstruments.dao.OrderDao;
 import com.musicinstruments.dao.OrderStateDao;
 import com.musicinstruments.entity.Order;
@@ -18,15 +21,15 @@ public class OrderEngine {
 	private static OrderEngine instance;
 	
 	@Autowired
-	private OrderDao orderDao;
+	private Dao <Order, Integer> orderDao;
 	
 	@Autowired
-	private OrderStateDao orderStateDao;
+	private Dao <OrderState, Integer> orderStateDao;
 	
-	private OrderEngine() {
+	public OrderEngine() {
 		
 	}
-	
+
 	public static OrderEngine getInstance() {
 		if (instance == null) {
 			return new OrderEngine();

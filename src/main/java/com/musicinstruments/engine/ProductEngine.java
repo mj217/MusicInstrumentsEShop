@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.musicinstruments.dao.CategoryDao;
+import com.musicinstruments.dao.Dao;
 import com.musicinstruments.dao.ProductDao;
 import com.musicinstruments.dao.ShoppingCartItemDao;
 import com.musicinstruments.entity.Category;
@@ -19,15 +20,15 @@ public class ProductEngine {
 	private static ProductEngine instance;
 	
 	@Autowired
-	private ProductDao productDao;
+	private Dao<Product, Integer> productDao;
 	
 	@Autowired 
-	private CategoryDao categoryDao;
+	private Dao<Category, Integer> categoryDao;
 	
 	@Autowired
-	private ShoppingCartItemDao shoppingCartItemDao;
+	private Dao<ShoppingCartItem, Integer> shoppingCartItemDao;
 	
-	private ProductEngine() {
+	public ProductEngine() {
 		
 	}
 	

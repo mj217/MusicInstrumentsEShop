@@ -63,4 +63,10 @@ public class OrderHistoryItemDao implements Dao<OrderHistoryItem, Integer> {
 			delete(entity);
 		}*/
 	}
+
+	@Override
+	public OrderHistoryItem findByName(String name) {
+		return null;
+		
+	}
 }
