@@ -14,6 +14,8 @@ public class Main {
 				new AnnotationConfigApplicationContext(ApplicationContextConfig.class);
 		
 		ProductEngine productEngine = context.getBean(ProductEngine.class);
+		
+		
 		Category category = new Category();
 		category.setName("drum");
 		productEngine.createCategory(category);

@@ -39,16 +39,14 @@ public class ApplicationContextConfig {
 	
 	@Autowired
 	@Bean(name = "sessionFactory")
-    public SessionFactory hibernateSessionFactory(DataSource dataSource) {
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setDataSource(dataSource);
-        factoryBean.setPackagesToScan(new String[] { 
-                  "com.musicinstruments.entity" 
-        });
-        factoryBean.setHibernateProperties(hibernateProperties());
-
-        SessionFactory sessionFactory = factoryBean.getObject();
-        return sessionFactory;
+    public LocalSessionFactoryBean hibernateSessionFactory(DataSource dataSource) {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+	      sessionFactory.setDataSource(getDataSource());
+	      sessionFactory.setPackagesToScan(
+	        new String[] { "com.musicinstruments.entity" });
+	      sessionFactory.setHibernateProperties(hibernateProperties());
+	 
+	      return sessionFactory;
     }
 	
 	private Properties hibernateProperties() {
@@ -58,8 +56,8 @@ public class ApplicationContextConfig {
 						env.getProperty("hibernate.hbm2ddl.auto"));
 				setProperty("hibernate.dialect",
 						env.getProperty("hibernate.dialect"));
-				setProperty("current_session_context_class",
-						env.getProperty("true"));
+				/*setProperty("current_session_context_class",
+						env.getProperty("true"));*/
 				setProperty("hibernate.globally_quoted_identifiers",
 						"true");
 			}
