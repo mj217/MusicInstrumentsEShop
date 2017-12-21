@@ -19,6 +19,9 @@ public class Main {
 		Category cat1 = new Category();
 		cat1.setName("percursion");
 		productEngine.createCategory(cat1);
+		Category cat2 = new Category();
+		cat2.setName("wind");
+		productEngine.createCategory(cat2);
 		
 		context.close();
 	}
