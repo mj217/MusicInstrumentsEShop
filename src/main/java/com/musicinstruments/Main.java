@@ -16,8 +16,10 @@ public class Main {
 		ProductEngine productEngine = context.getBean(ProductEngine.class);
 		
 		
-		Category category = new Category();
-		category.setName("drum");
-		productEngine.createCategory(category);
+		Category cat1 = new Category();
+		cat1.setName("percursion");
+		productEngine.createCategory(cat1);
+		
+		context.close();
 	}
 }

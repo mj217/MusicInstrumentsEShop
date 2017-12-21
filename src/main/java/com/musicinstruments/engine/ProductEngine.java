@@ -114,4 +114,5 @@ public class ProductEngine {
 	public void deleteCategory(Category category) {
 		categoryDao.delete(category);
 	}
+
 }

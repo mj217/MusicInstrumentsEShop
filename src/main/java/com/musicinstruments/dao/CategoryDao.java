@@ -2,10 +2,14 @@ package com.musicinstruments.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,10 +38,9 @@ public class CategoryDao implements Dao<Category, Integer> {
 	
 	@Override
 	public Category findById(Integer id) {
-		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
-		criteria.add(Restrictions.eq("id", id));
-		return (Category) criteria.uniqueResult();
+		return sessionFactory.
+				getCurrentSession().
+				get(Category.class, id);
 	}
 	
 	@Override
@@ -50,8 +53,16 @@ public class CategoryDao implements Dao<Category, Integer> {
 	@SuppressWarnings("unchecked")
 	public List<Category> findAll() {
 		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Category.class);
-		return criteria.list();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<Category> criteriaQuery = builder.createQuery(Category.class);
+        Root<Category> root = criteriaQuery.from(Category.class);
+        criteriaQuery.select(root);
+        criteriaQuery.orderBy(builder.asc(root.get("name")));
+        Query<Category> query = session.createQuery(criteriaQuery);
+        List<Category> list = query.getResultList();
+		
+		return list;
 	}
 	
 	@Override
