@@ -37,6 +37,14 @@ public class OrderEngine {
 		return instance;
 	}
 	
+	public void setOrderDao(OrderDao orderDao) {
+		this.orderDao = orderDao;
+	}
+	
+	public void setOrderStateDao(OrderStateDao orderStateDao) {
+		this.orderStateDao = orderStateDao;
+	}
+	
 	@Transactional
 	public void createOrder(Order order) {
 		orderDao.persist(order);

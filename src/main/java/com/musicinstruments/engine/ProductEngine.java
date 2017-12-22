@@ -42,6 +42,18 @@ public class ProductEngine {
 		return instance;
 	}
 	
+	public void setproductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
+	
+	public void setCategoryDao(CategoryDao categoryDao) {
+		this.categoryDao = categoryDao;
+	}
+	
+	public void setShoppingCartItemDao(ShoppingCartItemDao shoppingCartItemDao) {
+		this.shoppingCartItemDao = shoppingCartItemDao;
+	}
+	
 	@Transactional
 	public void createProduct(Product product) {
 		productDao.persist(product);

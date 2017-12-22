@@ -37,6 +37,18 @@ public class UserEngine {
 		return instance;
 	}
 	
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+	
+	public void setUserStateDao(UserStateDao userStateDao) {
+		this.userStateDao = userStateDao;
+	}
+	
+	public void setRoleDao(RoleDao roleDao) {
+		this.roleDao = roleDao;
+	}
+	
 	@Transactional
 	public void register(User user) {
 		userDao.persist(user);

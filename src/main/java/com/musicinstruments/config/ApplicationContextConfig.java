@@ -11,14 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.musicinstruments.engine.OrderEngine;
+import com.musicinstruments.engine.ProductEngine;
+import com.musicinstruments.engine.UserEngine;
+
 @Configuration
 @ComponentScan("com.musicinstruments")
+@ImportResource("classpath:engine_beans_context.xml")
 @PropertySource({"classpath:ds-hibernate-cfg.properties"})
 @EnableTransactionManagement
 public class ApplicationContextConfig {
@@ -75,4 +81,19 @@ public class ApplicationContextConfig {
 
 		return txManager;
 	}
+	
+	/*@Bean(name="userEngine")
+	public UserEngine userEngine() {
+		return UserEngine.getInstance();
+	}
+	
+	@Bean(name="orderEngine")
+	public OrderEngine orderEngine() {
+		return OrderEngine.getInstance();
+	}
+	
+	@Bean(name="productEngine")
+	public ProductEngine productEngine() {
+		return ProductEngine.getInstance();
+	}*/
 }

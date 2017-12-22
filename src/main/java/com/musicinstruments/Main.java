@@ -13,8 +13,7 @@ public class Main {
 		AnnotationConfigApplicationContext context = 
 				new AnnotationConfigApplicationContext(ApplicationContextConfig.class);
 		
-		ProductEngine productEngine = context.getBean(ProductEngine.class);
-		
+		ProductEngine productEngine = (ProductEngine) context.getBean("productEngine");
 		
 		Category cat1 = new Category();
 		cat1.setName("percursion");
