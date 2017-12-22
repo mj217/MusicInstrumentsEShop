@@ -18,26 +18,26 @@ import com.musicinstruments.entity.User;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class UserDao implements Dao<User, Integer> {
+public class UserDao /*implements Dao<User, Integer>*/ {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	//private RoleDao roleDao;
 	//private UserStateDao userStateDao;
 	
-	@Override
+	//@Override
 	public void persist(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(user);
 	}
 	
-	@Override
+	//@Override
 	public void update(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(user);
 	}
 	
-	@Override
+	//@Override
 	public User findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(User.class);
@@ -45,13 +45,13 @@ public class UserDao implements Dao<User, Integer> {
 		return (User) criteria.uniqueResult();
 	}
 	
-	@Override
+	//@Override
 	public void delete(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(user);
 	}
 	
-	@Override
+	//@Override
 	@SuppressWarnings("unchecked")
 	public List<User> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -59,7 +59,7 @@ public class UserDao implements Dao<User, Integer> {
 		return criteria.list();
 	}
 	
-	@Override
+	//@Override
 	public void deleteAll() {
 		List<User> entityList = findAll();
 		for(User entity : entityList) {
@@ -67,7 +67,7 @@ public class UserDao implements Dao<User, Integer> {
 		}
 	}
 
-	@Override
+	//@Override
 	public User findByName(String name) {
 		return null;
 		

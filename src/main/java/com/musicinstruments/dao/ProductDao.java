@@ -16,24 +16,24 @@ import com.musicinstruments.entity.Product;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class ProductDao implements Dao<Product, Integer> {
+public class ProductDao /*implements Dao<Product, Integer>*/ {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
+	//@Override
 	public void persist(Product product) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(product);
 	}
 	
-	@Override
+	//@Override
 	public void update(Product product) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(product);
 	}
 	
-	@Override
+	//@Override
 	public Product findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Product product = (Product) session.createCriteria(Product.class)
@@ -42,13 +42,13 @@ public class ProductDao implements Dao<Product, Integer> {
 		return product;
 	}
 	
-	@Override
+	//@Override
 	public void delete(Product product) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(product);
 	}
 	
-	@Override
+	//@Override
 	@SuppressWarnings("unchecked")
 	public List<Product> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -57,7 +57,7 @@ public class ProductDao implements Dao<Product, Integer> {
 		return result;
 	}
 	
-	@Override
+	//@Override
 	public void deleteAll() {
 		List<Product> entityList = findAll();
 		for(Product entity : entityList) {
@@ -65,7 +65,7 @@ public class ProductDao implements Dao<Product, Integer> {
 		}
 	}
 
-	@Override
+	//@Override
 	public Product findByName(String name) {
 		return null;
 		

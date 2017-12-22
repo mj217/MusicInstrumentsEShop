@@ -15,24 +15,24 @@ import com.musicinstruments.entity.Role;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class RoleDao implements Dao<Role, Integer> {
+public class RoleDao /*implements Dao<Role, Integer>*/ {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
+	//@Override
 	public void persist(Role role) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(role);
 	}
 	
-	@Override
+	//@Override
 	public void update(Role role) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(role);
 	}
 	
-	@Override
+	//@Override
 	public Role findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Role.class);
@@ -40,13 +40,13 @@ public class RoleDao implements Dao<Role, Integer> {
 		return (Role) criteria.uniqueResult();
 	}
 	
-	@Override
+	//@Override
 	public void delete(Role role) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(role);
 	}
 	
-	@Override
+	//@Override
 	@SuppressWarnings("unchecked")
 	public List<Role> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -54,7 +54,7 @@ public class RoleDao implements Dao<Role, Integer> {
 		return criteria.list();
 	}
 	
-	@Override
+	//@Override
 	public void deleteAll() {
 		List<Role> entityList = findAll();
 		for(Role entity : entityList) {
@@ -62,7 +62,7 @@ public class RoleDao implements Dao<Role, Integer> {
 		}
 	}
 
-	@Override
+	//@Override
 	public Role findByName(String name) {
 		return null;
 		

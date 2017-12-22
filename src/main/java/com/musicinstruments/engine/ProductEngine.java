@@ -22,13 +22,13 @@ public class ProductEngine {
 	private static ProductEngine instance;
 	
 	@Autowired
-	private Dao<Product, Integer> productDao;
+	private ProductDao productDao;
 	
 	@Autowired 
-	private Dao<Category, Integer> categoryDao;
+	private CategoryDao categoryDao;
 	
 	@Autowired
-	private Dao<ShoppingCartItem, Integer> shoppingCartItemDao;
+	private ShoppingCartItemDao shoppingCartItemDao;
 	
 	public ProductEngine() {
 		

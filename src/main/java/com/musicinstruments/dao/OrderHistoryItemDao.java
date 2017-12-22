@@ -15,24 +15,24 @@ import com.musicinstruments.entity.OrderHistoryItem;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class OrderHistoryItemDao implements Dao<OrderHistoryItem, Integer> {
+public class OrderHistoryItemDao /*implements Dao<OrderHistoryItem, Integer>*/ {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
+	//@Override
 	public void persist(OrderHistoryItem orderHistoryItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(orderHistoryItem);
 	}
 	
-	@Override
+	//@Override
 	public void update(OrderHistoryItem orderHistoryItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(orderHistoryItem);
 	}
 	
-	@Override 
+	//@Override 
 	public OrderHistoryItem findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(OrderHistoryItem.class);
@@ -40,13 +40,13 @@ public class OrderHistoryItemDao implements Dao<OrderHistoryItem, Integer> {
 		return (OrderHistoryItem) criteria.uniqueResult();
 	}
 	
-	@Override
+	//@Override
 	public void delete(OrderHistoryItem orderHistoryItem) {
 		/*Session session = sessionFactory.getCurrentSession();
 		session.delete(orderHistoryItem);*/
 	}
 	
-	@Override
+	//@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	@SuppressWarnings("unchecked")
 	public List<OrderHistoryItem> findAll() {
@@ -55,7 +55,7 @@ public class OrderHistoryItemDao implements Dao<OrderHistoryItem, Integer> {
 		return criteria.list();
 	}
 	
-	@Override
+	//@Override
 	@Transactional
 	public void deleteAll() {
 		/*List<OrderHistoryItem> entityList = findAll();
@@ -64,7 +64,7 @@ public class OrderHistoryItemDao implements Dao<OrderHistoryItem, Integer> {
 		}*/
 	}
 
-	@Override
+	//@Override
 	public OrderHistoryItem findByName(String name) {
 		return null;
 		

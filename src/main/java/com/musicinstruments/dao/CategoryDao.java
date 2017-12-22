@@ -19,37 +19,37 @@ import com.musicinstruments.entity.Category;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class CategoryDao implements Dao<Category, Integer> {
+public class CategoryDao /*implements Dao<Category, Integer>*/ {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
+	//@Override
 	public void persist(Category category) {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(category);
 	}
 	
-	@Override
+	//@Override
 	public void update(Category category) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(category);
 	}
 	
-	@Override
+	//@Override
 	public Category findById(Integer id) {
 		return sessionFactory.
 				getCurrentSession().
 				get(Category.class, id);
 	}
 	
-	@Override
+	//@Override
 	public void delete(Category category) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(category);
 	}
 	
-	@Override
+	//@Override
 	@SuppressWarnings("unchecked")
 	public List<Category> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -65,7 +65,7 @@ public class CategoryDao implements Dao<Category, Integer> {
 		return list;
 	}
 	
-	@Override
+	//@Override
 	public void deleteAll() {
 		List<Category> entityList = findAll();
 		for(Category entity: entityList) {
@@ -73,7 +73,7 @@ public class CategoryDao implements Dao<Category, Integer> {
 		}
 	}
 
-	@Override
+	//@Override
 	public Category findByName(String name) {
 		return null;		
 	}

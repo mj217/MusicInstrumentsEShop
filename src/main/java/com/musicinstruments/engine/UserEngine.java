@@ -18,13 +18,13 @@ public class UserEngine {
 	private static UserEngine instance;
 	
 	@Autowired 
-	private Dao<User, Integer> userDao;
+	private UserDao userDao;
 	
 	@Autowired 
-	private Dao<Role, Integer> roleDao;
+	private RoleDao roleDao;
 	
 	@Autowired
-	private Dao<UserState, Integer> userStateDao;
+	private UserStateDao userStateDao;
 	
 	public UserEngine() {
 		

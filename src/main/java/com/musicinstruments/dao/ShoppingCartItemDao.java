@@ -15,24 +15,24 @@ import com.musicinstruments.entity.ShoppingCartItem;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
+public class ShoppingCartItemDao /*implements Dao<ShoppingCartItem, Integer>*/ {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
+	//@Override
 	public void persist(ShoppingCartItem shoppingCartItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(shoppingCartItem);
 	}
 	
-	@Override
+	//@Override
 	public void update(ShoppingCartItem shoppingCartItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(shoppingCartItem);
 	}
 	
-	@Override
+	//@Override
 	public ShoppingCartItem findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(ShoppingCartItem.class);
@@ -40,13 +40,13 @@ public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 		return (ShoppingCartItem) criteria.uniqueResult();
 	}
 	
-	@Override
+	//@Override
 	public void delete(ShoppingCartItem shoppingCartItem) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(shoppingCartItem);
 	}
 	
-	@Override
+	//@Override
 	@SuppressWarnings("unchecked")
 	public List<ShoppingCartItem> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -54,7 +54,7 @@ public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 		return criteria.list();
 	}
 	
-	@Override
+	//@Override
 	public void deleteAll() {
 		List<ShoppingCartItem> entityList = findAll();
 		for(ShoppingCartItem entity : entityList) {
@@ -62,7 +62,7 @@ public class ShoppingCartItemDao implements Dao<ShoppingCartItem, Integer> {
 		}
 	}
 
-	@Override
+	//@Override
 	public ShoppingCartItem findByName(String name) {
 		return null;
 	}

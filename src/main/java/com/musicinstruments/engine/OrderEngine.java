@@ -21,10 +21,10 @@ public class OrderEngine {
 	private static OrderEngine instance;
 	
 	@Autowired
-	private Dao <Order, Integer> orderDao;
+	private OrderDao orderDao;
 	
 	@Autowired
-	private Dao <OrderState, Integer> orderStateDao;
+	private OrderStateDao orderStateDao;
 	
 	public OrderEngine() {
 		

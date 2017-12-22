@@ -15,24 +15,24 @@ import com.musicinstruments.entity.UserState;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class UserStateDao implements Dao<UserState, Integer> {
+public class UserStateDao /*implements Dao<UserState, Integer>*/ {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Override
+	//@Override
 	public void persist(UserState userState) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(userState);
 	}
 	
-	@Override
+	//@Override
 	public void update(UserState userState) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(userState);
 	}
 	
-	@Override
+	//@Override
 	public UserState findById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(UserState.class);
@@ -40,13 +40,13 @@ public class UserStateDao implements Dao<UserState, Integer> {
 		return (UserState) criteria.uniqueResult();
 	}
 	
-	@Override
+	//@Override
 	public void delete(UserState userState) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(userState);
 	}
 	
-	@Override
+	//@Override
 	@SuppressWarnings("unchecked")
 	public List<UserState> findAll() {
 		Session session = sessionFactory.getCurrentSession();
@@ -54,7 +54,7 @@ public class UserStateDao implements Dao<UserState, Integer> {
 		return criteria.list();
 	}
 	
-	@Override
+	//@Override
 	public void deleteAll() {
 		List<UserState> entityList = findAll();
 		for(UserState entity : entityList) {
