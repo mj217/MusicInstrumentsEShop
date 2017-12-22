@@ -52,12 +52,12 @@ public class ApplicationContextConfig {
 	private Properties hibernateProperties() {
 		return new Properties() {
 			{
-				setProperty("hibernate.hbm2ddl.auto",
-						env.getProperty("hibernate.hbm2ddl.auto"));
+				/*setProperty("hibernate.hbm2ddl.auto",
+						env.getProperty("hibernate.hbm2ddl.auto"));*/
 				setProperty("hibernate.dialect",
 						env.getProperty("hibernate.dialect"));
 				setProperty("current_session_context_class",
-						env.getProperty("true"));
+						env.getProperty("current_session_context_class"));
 				/*setProperty("hibernate.temp.use_jdbc_metadata_defaults",
 						"false");*/
 				setProperty("hibernate.globally_quoted_identifiers",

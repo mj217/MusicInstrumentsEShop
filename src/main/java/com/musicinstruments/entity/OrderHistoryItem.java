@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class OrderHistoryItem {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Integer id;
 	
