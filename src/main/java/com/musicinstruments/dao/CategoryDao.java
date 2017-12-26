@@ -6,6 +6,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.musicinstruments.entity.Category;
+import com.musicinstruments.entity.Order;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
@@ -53,16 +55,19 @@ public class CategoryDao /*implements Dao<Category, Integer>*/ {
 	@SuppressWarnings("unchecked")
 	public List<Category> findAll() {
 		Session session = sessionFactory.getCurrentSession();
+		/*
 		CriteriaBuilder builder = session.getCriteriaBuilder();
-
         CriteriaQuery<Category> criteriaQuery = builder.createQuery(Category.class);
         Root<Category> root = criteriaQuery.from(Category.class);
         criteriaQuery.select(root);
         criteriaQuery.orderBy(builder.asc(root.get("name")));
         Query<Category> query = session.createQuery(criteriaQuery);
         List<Category> list = query.getResultList();
-		
-		return list;
+        return list;*/
+        
+		Criteria criteria = session.createCriteria(Order.class);
+		return criteria.list();
+        
 	}
 	
 	//@Override
