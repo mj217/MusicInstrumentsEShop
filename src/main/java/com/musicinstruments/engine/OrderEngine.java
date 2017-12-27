@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import com.musicinstruments.dao.Dao;
 import com.musicinstruments.dao.OrderDao;
@@ -72,7 +73,7 @@ public class OrderEngine {
 	}
 	
 	@Transactional
-	public void sheduleOrderDelivery(Order order, Timestamp deliveryDate) {
+	public void sheduleOrderDelivery(Order order, LocalDateTime deliveryDate) {
 		order.setDeliveryDate(deliveryDate);
 		orderDao.update(order);
 	}

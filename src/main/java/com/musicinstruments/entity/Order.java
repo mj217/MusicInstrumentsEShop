@@ -3,6 +3,7 @@ package com.musicinstruments.entity;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.musicinstruments.utils.CommonUtil;
 
 @Entity
 @Table(name = "Orders")
@@ -43,11 +46,11 @@ public class Order {
 	
 	@OneToMany(mappedBy = "order",
 			fetch = FetchType.LAZY)
-	Set<OrderHistoryItem> orderHistoryItems = new HashSet<>();
+	Set<OrderHistoryItem> orderHistoryItems;
 	
 	@OneToMany(mappedBy = "order",
 			fetch = FetchType.LAZY)
-	Set<OrderItem> orderItems = new HashSet<>();
+	Set<OrderItem> orderItems;
 	
 	public Integer getId() {
 		return id;
@@ -90,19 +93,54 @@ public class Order {
 	} 
 	
 	public Set<OrderHistoryItem> getOrderHistoryItems() {
-		return orderHistoryItems;
+		return CommonUtil.getSafeSet(orderHistoryItems);
 	}
 	
-	public void setOrderHistoryItems(HashSet<OrderHistoryItem> orderHistoryItems) {
+	public void setOrderHistoryItems(Set<OrderHistoryItem> orderHistoryItems) {
 		this.orderHistoryItems = orderHistoryItems;
 	}
 	
 	public Set<OrderItem> getOrderItems() {
-		return orderItems;
+		return CommonUtil.getSafeSet(orderItems);
 	}
 	
-	public void setOrderItems(HashSet<OrderItem> orderItems) {
+	public void setOrderItems(Set<OrderItem> orderItems) {
 		this.orderItems = orderItems;
 	}
 
+	public void addOrderItem(OrderItem orderItem) {
+		Objects.requireNonNull(orderItem, "orderItem parameter is not initialized");
+		if(orderItems == null) {
+			orderItems= new HashSet<>();
+		}
+		orderItems.add(orderItem);
+		orderItem.setOrder(this);
+	}
+	
+	public void removeOrderItem(OrderItem orderItem) {
+		Objects.requireNonNull(orderItem, "orderItem parameter is not initialized");
+		if(orderItems == null) {
+			return;
+		}
+		orderItems.remove(orderItem);
+	}
+	
+	public void addOrdeHistoryItem(OrderHistoryItem orderHistoryItem) {
+		Objects.requireNonNull(orderHistoryItem, "orderHistoryItem parameter is not initialized");
+		if(orderHistoryItems == null) {
+			orderHistoryItems = new HashSet<>();
+		}
+		orderHistoryItems.add(orderHistoryItem);
+		orderHistoryItem.setOrder(this);
+	}
+	
+	public void removeOrdeHistoryItem(OrderHistoryItem orderHistoryItem) {
+		Objects.requireNonNull(orderHistoryItem, "orderHistoryItem parameter is not initialized");
+		if(orderHistoryItems == null) {
+			return;
+		}
+		orderHistoryItems.remove(orderHistoryItem);
+		
+	}
+	
 }

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.musicinstruments.utils.CommonUtil;
+
 @Entity
 @Table(name = "OrderStates")
 public class OrderState {
@@ -25,10 +27,10 @@ public class OrderState {
 	private String name;
 	
 	@OneToMany(mappedBy = "orderState", fetch = FetchType.EAGER)
-	private Set<Order> orders = new HashSet<>();
+	private Set<Order> orders;
 	
 	@OneToMany(mappedBy = "orderState", fetch = FetchType.EAGER)
-	private Set<OrderHistoryItem> orderHistoryItems = new HashSet<>();
+	private Set<OrderHistoryItem> orderHistoryItems;
 	
 	public Integer getId() {
 		return id;
@@ -47,18 +49,18 @@ public class OrderState {
 	}
 	
 	public Set<Order> getOrders() {
-		return orders;
+		return CommonUtil.getSafeSet(orders);
 	}
 	
-	public void setOrders(HashSet<Order> orders) {
+	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
 	
 	public Set<OrderHistoryItem> getOrderHistoryItems() {
-		return orderHistoryItems;
+		return CommonUtil.getSafeSet(orderHistoryItems);
 	}
 	
-	public void setOrderHistoryItems(HashSet<OrderHistoryItem> orderHistoryItems) {
+	public void setOrderHistoryItems(Set<OrderHistoryItem> orderHistoryItems) {
 		this.orderHistoryItems = orderHistoryItems;
 	}
 }

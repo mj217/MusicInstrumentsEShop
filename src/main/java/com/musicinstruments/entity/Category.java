@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.musicinstruments.utils.CommonUtil;
 
 @Entity
 @Table(name = "Categories")
@@ -34,10 +37,10 @@ public class Category {
 	
 	@OneToMany(mappedBy = "parentCategory",
 				fetch = FetchType.EAGER)
-	private Set<Category> subCategories = new HashSet<Category>();
+	private Set<Category> subCategories;
 	
 	@ManyToMany(mappedBy = "categories")
-	private Set<Product> products = new HashSet<>();
+	private Set<Product> products;
 	
 	public Integer getId() {
 		return id;
@@ -64,19 +67,36 @@ public class Category {
 	}
 	
 	public Set<Category> getSubCategories() {
-		return subCategories;
+		return CommonUtil.getSafeSet(subCategories);
 	}
 	
-	public void setSubCategories(HashSet<Category> subCategories) {
+	public void setSubCategories(Set<Category> subCategories) {
 		this.subCategories = subCategories;
 	}
 	
 	public Set<Product> getProducts() {
-		return products;
+		return CommonUtil.getSafeSet(products);
 	}
 	
-	public void setProducts(HashSet<Product> products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 	
+	public void addSubcategory(Category category) {
+		Objects.requireNonNull(category, "category parameter is not initialized");
+		if(subCategories == null) {
+			subCategories = new HashSet<>();
+		}
+		subCategories.add(category);
+		category.setParentCategory(this);
+	}
+	
+	public void removeSubCategory(Category category) {
+		Objects.requireNonNull(category, "category parameter is not initialized");
+		if(subCategories == null) {
+			return;
+		}
+		subCategories.remove(category);
+	}
+
 }
