@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class OrderHistoryItem {
 	private User modifiedBy;
 	
 	@Column(name = "ModifiedOn")
-	private Timestamp modifiedOn;
+	private LocalDateTime modifiedOn;
 	
 	public Integer getId() {
 		return id;
@@ -67,11 +68,11 @@ public class OrderHistoryItem {
 		this.modifiedBy = modifiedBy;
 	}
 	
-	public Timestamp getModofoedOn() {
+	public LocalDateTime getModofoedOn() {
 		return modifiedOn;
 	}
 	
-	public void setModifiedOn(Timestamp modifiedOn) {
+	public void setModifiedOn(LocalDateTime modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
 }
