@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.musicinstruments.utils.CommonUtil;
+
 
 @Entity
 @Table(name = "Users")
@@ -52,23 +54,23 @@ public class User {
 			joinColumns = { @JoinColumn(name = "UserID") },
 			inverseJoinColumns = { @JoinColumn(name = "RoleID") }
 	)
-	private Set<Role> roles = new HashSet<>();
+	private Set<Role> roles;
 	
 	@OneToMany(mappedBy = "customer",
 				fetch = FetchType.LAZY)
-	private Set<Order> customerOrders = new HashSet<>();
+	private Set<Order> customerOrders;
 	
 	@OneToMany(mappedBy = "manager",
 				fetch = FetchType.LAZY)
-	private Set<Order> managerOrders = new HashSet<>();
+	private Set<Order> managerOrders;
 	
 	@OneToMany(mappedBy = "modifiedBy",
 				fetch = FetchType.LAZY)
-	private Set<OrderHistoryItem> orderHistoryItems = new HashSet<>();
+	private Set<OrderHistoryItem> orderHistoryItems;
 	
 	@OneToMany(mappedBy = "customer",
 				fetch = FetchType.LAZY)
-	private Set<ShoppingCartItem> shoppingCartItems = new HashSet<>();
+	private Set<ShoppingCartItem> shoppingCartItems;
 	
 	public Integer getId() {
 		return id;
@@ -127,42 +129,42 @@ public class User {
 	}
 	
 	public Set<Role> getRoles() {
-		return roles;
+		return CommonUtil.getSafeSet(roles);
 	}
 	
-	public void setRoles(HashSet<Role> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 	
 	public Set<Order> getCustomerOrders() {
-		return customerOrders;
+		return CommonUtil.getSafeSet(customerOrders);
 	}
 	
-	public void setCustomerOrders(HashSet<Order> customerOrders) {
+	public void setCustomerOrders(Set<Order> customerOrders) {
 		this.customerOrders = customerOrders;
 	}
 	
 	public Set<Order> getManagerOrders() {
-		return managerOrders;
+		return CommonUtil.getSafeSet(managerOrders);
 	}
 	
-	public void setManagerOrders(HashSet<Order> managerOrders) {
+	public void setManagerOrders(Set<Order> managerOrders) {
 		this.managerOrders = managerOrders;
 	}
 	
 	public Set<OrderHistoryItem> getOrderHistoryItems() {
-		return orderHistoryItems;
+		return CommonUtil.getSafeSet(orderHistoryItems);
 	}
 	
-	public void setOrderHistoryItems(HashSet<OrderHistoryItem> orderHistoryItems) {
+	public void setOrderHistoryItems(Set<OrderHistoryItem> orderHistoryItems) {
 		this.orderHistoryItems = orderHistoryItems;
 	}
 	
 	public Set<ShoppingCartItem> getShoppingCartItems() {
-		return shoppingCartItems;
+		return CommonUtil.getSafeSet(shoppingCartItems);
 	}
 	
-	public void setShoppingCartItems(HashSet<ShoppingCartItem> shoppingCartItems) {
+	public void setShoppingCartItems(Set<ShoppingCartItem> shoppingCartItems) {
 		this.shoppingCartItems = shoppingCartItems;
 	}
 }

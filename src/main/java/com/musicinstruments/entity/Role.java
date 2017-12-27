@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.musicinstruments.utils.CommonUtil;
+
 @Entity
 @Table(name = "Roles")
 public class Role {
@@ -24,7 +26,7 @@ public class Role {
 	private String name;
 	
 	@ManyToMany(mappedBy = "roles")
-	private Set<User> users = new HashSet<>();
+	private Set<User> users;
 	
 	public Integer getId() {
 		return id;
@@ -43,10 +45,10 @@ public class Role {
 	}
 	
 	public Set<User> getUsers() {
-		return users;
+		return CommonUtil.getSafeSet(users);
 	}
 	
-	public void setUsers(HashSet<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 }

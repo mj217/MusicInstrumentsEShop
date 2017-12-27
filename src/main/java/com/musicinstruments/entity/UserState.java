@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.musicinstruments.utils.CommonUtil;
+
 @Entity
 @Table(name = "UserStates")
 public class UserState {
@@ -25,7 +27,7 @@ public class UserState {
 	private String name;
 	
 	@OneToMany(mappedBy = "userState", fetch = FetchType.EAGER)
-	private Set<User> users = new HashSet<>();
+	private Set<User> users;
 	
 	public Integer getId() {
 		return id;
@@ -44,10 +46,10 @@ public class UserState {
 	}
 	
 	public Set<User> getUsers() {
-		return users;
+		return CommonUtil.getSafeSet(users);
 	}
 	
-	public void setUsers(HashSet<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 }
