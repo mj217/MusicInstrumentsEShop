@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -166,5 +167,87 @@ public class User {
 	
 	public void setShoppingCartItems(Set<ShoppingCartItem> shoppingCartItems) {
 		this.shoppingCartItems = shoppingCartItems;
+	}
+	
+	public void addRole(Role role) {
+		Objects.requireNonNull(role, "role parameter is not initialized");
+		if(roles == null) {
+			roles = new HashSet<>();
+		}
+		roles.add(role);
+		Set<User> users = role.getUsers();
+		users.add(this);
+		role.setUsers(users);
+	}
+	
+	public void removeRole(Role role) {
+		Objects.requireNonNull(role, "role parameter is not initialized");
+		if(roles == null) {
+			return;
+		}
+		roles.remove(role);
+		Set<User> users = role.getUsers();
+		users.remove(this);
+		role.setUsers(users);
+	}
+	
+	public void addCustomerOrder(Order order) {
+		Objects.requireNonNull(order, "order parameter is not initialized");
+		if(customerOrders == null) {
+			customerOrders = new HashSet<>();
+		}
+		customerOrders.add(order);
+		order.setCustomer(this);
+	}
+	
+	public void removeCustomerOrder(Order order) {
+		Objects.requireNonNull(order, "order parameter is not initialized");
+		if(customerOrders == null) {
+			return;
+		}
+		customerOrders.remove(order);
+	}
+	
+	public void addManagerOrder(Order order) {
+		Objects.requireNonNull(order, "order parameter is not initialized");
+		if(managerOrders == null) {
+			managerOrders = new HashSet<>();
+		}
+		managerOrders.add(order);
+		order.setManager(this);
+	}
+	
+	public void addOrderHistoryItem(OrderHistoryItem orderHistoryItem) {
+		Objects.requireNonNull(orderHistoryItem, "orderHistoryItem parameter is not initialized");
+		if(orderHistoryItems == null) {
+			orderHistoryItems = new HashSet<>();
+		}
+		orderHistoryItems.add(orderHistoryItem);
+		orderHistoryItem.setModifiedBy(this);
+	}
+	
+	public void removeOrderHistoryItem(OrderHistoryItem orderHistoryItem) {
+		Objects.requireNonNull(orderHistoryItem, "orderHistoryItem parameter is not initialized");
+		if(orderHistoryItems == null) {
+			return;
+		}
+		orderHistoryItems.remove(orderHistoryItem);
+	}
+	
+	public void addShoppingCartItem(ShoppingCartItem shoppingCartItem) {
+		Objects.requireNonNull(shoppingCartItem, "shoppingCArtItem parameter is not initialized");
+		if(shoppingCartItems == null) {
+			shoppingCartItems = new HashSet<>();
+		}
+		shoppingCartItems.add(shoppingCartItem);
+		shoppingCartItem.setCustomer(this);
+	}
+	
+	public void removeShoppingCartItem(ShoppingCartItem shoppingCartItem) {
+		Objects.requireNonNull(shoppingCartItem, "shoppingCartItem parameter is not initialized");
+		if(shoppingCartItems == null) {
+			return;
+		}
+		shoppingCartItems.remove(shoppingCartItem);
 	}
 }

@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -63,4 +64,38 @@ public class OrderState {
 	public void setOrderHistoryItems(Set<OrderHistoryItem> orderHistoryItems) {
 		this.orderHistoryItems = orderHistoryItems;
 	}
-}
+	
+	public void addOrder(Order order) {
+		Objects.requireNonNull("order", "order parameter is not initialized");
+		if(orders == null) {
+			orders = new HashSet<>();
+		}
+		orders.add(order);
+		order.setOrderState(this);
+	}
+	
+	public void removeOrder(Order order) {
+		Objects.requireNonNull(order, "order parameter is not initialized");
+		if(orders == null) {
+			return;
+		}
+		orders.remove(order);
+	}
+	
+	public void addOrderHistoryItem(OrderHistoryItem orderHistoryItem) {
+		Objects.requireNonNull(orderHistoryItem, "orderHistoryItem parameter is not initialized");
+		if(orderHistoryItems == null) {
+			orderHistoryItems = new HashSet<>();
+		}
+		orderHistoryItems.add(orderHistoryItem);
+		orderHistoryItem.setOrderState(this);
+	}
+	
+	public void removeOrderHistoryItem(OrderHistoryItem orderHistoryItem) {
+		Objects.requireNonNull(orderHistoryItem, "orderHistoryOItem paramenter is not initialzied");
+		if(orderHistoryItems == null) {
+			return;
+		}
+		orderHistoryItems.remove(orderHistoryItem);
+	}
+} 

@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -51,5 +52,22 @@ public class UserState {
 	
 	public void setUsers(Set<User> users) {
 		this.users = users;
+	}
+	
+	public void addUser(User user) {
+		Objects.requireNonNull(user, "user parameter is not initialized");
+		if(users == null) {
+			users = new HashSet<>();
+		}
+		users.add(user);
+		user.setUserState(this);
+	}
+	
+	public void removeUser(User user) {
+		Objects.requireNonNull(user, "user parameter is not initialized");
+		if(users == null) {
+			return;
+		}
+		users.remove(user);
 	}
 }

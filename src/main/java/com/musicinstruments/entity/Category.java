@@ -82,7 +82,7 @@ public class Category {
 		this.products = products;
 	}
 	
-	public void addSubcategory(Category category) {
+	public void addSubcategory(final Category category) {
 		Objects.requireNonNull(category, "category parameter is not initialized");
 		if(subCategories == null) {
 			subCategories = new HashSet<>();
@@ -91,7 +91,7 @@ public class Category {
 		category.setParentCategory(this);
 	}
 	
-	public void removeSubCategory(Category category) {
+	public void removeSubCategory(final Category category) {
 		Objects.requireNonNull(category, "category parameter is not initialized");
 		if(subCategories == null) {
 			return;
