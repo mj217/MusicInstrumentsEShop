@@ -235,7 +235,7 @@ public class User {
 	}
 	
 	public void addShoppingCartItem(ShoppingCartItem shoppingCartItem) {
-		Objects.requireNonNull(shoppingCartItem, "shoppingCArtItem parameter is not initialized");
+		Objects.requireNonNull(shoppingCartItem, "shoppingCartItem parameter is not initialized");
 		if(shoppingCartItems == null) {
 			shoppingCartItems = new HashSet<>();
 		}
