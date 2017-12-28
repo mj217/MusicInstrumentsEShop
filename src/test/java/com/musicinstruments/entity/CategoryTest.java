@@ -26,4 +26,6 @@ public class CategoryTest {
 	private boolean containsSubCategory(Category category2, Category subCategory) {
 		return category.getSubCategories().contains(subCategory);
 	}
+	
+	
 }
