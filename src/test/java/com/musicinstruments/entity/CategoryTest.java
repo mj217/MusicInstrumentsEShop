@@ -60,7 +60,7 @@ public class CategoryTest {
 		fail();
 	}
 	
-	@Test(expected=CategoriesCircledStructureException.class)
+	@Test
 	public void testMakeCircledCategoriesStructureFailure() throws CategoriesCircledStructureException {
 
 		Category subCategory1 = new Category();
@@ -68,7 +68,15 @@ public class CategoryTest {
 		
 		category.addSubCategory(subCategory1);
 		subCategory1.addSubCategory(subCategory2);
-		subCategory2.addSubCategory(category);
+	
+
+		assertThrown(() -> new subCategory2.addSubCategory(category))
+        // assertions
+        .isInstanceOf(CategoriesCircledStructureException.class)
+        .hasMessage("Runtime exception occurred")
+        .hasCauseInstanceOf(IllegalStateException.class);
+		
+		
 		fail();	
 	}
 	
