@@ -61,7 +61,7 @@ public class CategoryTest {
 	}
 	
 	@Test(expected=CategoriesCircledStructureException.class)
-	public void testMakeCircledCategoriesStructureFailure() {
+	public void testMakeCircledCategoriesStructureFailure() throws CategoriesCircledStructureException {
 
 		Category subCategory1 = new Category();
 		Category subCategory2 = new Category();
@@ -69,9 +69,7 @@ public class CategoryTest {
 		category.addSubCategory(subCategory1);
 		subCategory1.addSubCategory(subCategory2);
 		subCategory2.addSubCategory(category);
-		fail();
-
-		
+		fail();	
 	}
 	
 	private boolean containsSubCategory(Category category, Category subCategory) {
