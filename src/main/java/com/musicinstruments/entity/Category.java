@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.musicinstruments.exceptions.CategoriesCircledStructureException;
 import com.musicinstruments.utils.CommonUtil;
 
 @Entity
@@ -82,10 +83,14 @@ public class Category {
 		this.products = products;
 	}
 	
-	public void addSubCategory(final Category category) {
+	public void addSubCategory(final Category category) throws CategoriesCircledStructureException {
 		Objects.requireNonNull(category, "category parameter is not initialized");
 		if(subCategories == null) {
 			subCategories = new HashSet<>();
+		}
+		if(this.getParentCategory() != null && category.getSubCategories().contains(this.getParentCategory())) {
+			throw new CategoriesCircledStructureException("Category " + category + " is a root for the category " + this);
+			
 		}
 		subCategories.add(category);
 		category.setParentCategory(this);
