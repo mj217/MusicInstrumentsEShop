@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -60,24 +61,18 @@ public class CategoryTest {
 		fail();
 	}
 	
-	@Test
-	public void testMakeCircledCategoriesStructureFailure() throws CategoriesCircledStructureException {
+	@Test(expected=CategoriesCircledStructureException.class)
+	public void testCreateCircledCategoriesStructureFailure() {
 
 		Category subCategory1 = new Category();
 		Category subCategory2 = new Category();
-		
+
 		category.addSubCategory(subCategory1);
 		subCategory1.addSubCategory(subCategory2);
-	
+		subCategory2.addSubCategory(category);
+		fail();
 
-		assertThrown(() -> new subCategory2.addSubCategory(category))
-        // assertions
-        .isInstanceOf(CategoriesCircledStructureException.class)
-        .hasMessage("Runtime exception occurred")
-        .hasCauseInstanceOf(IllegalStateException.class);
-		
-		
-		fail();	
+
 	}
 	
 	private boolean containsSubCategory(Category category, Category subCategory) {

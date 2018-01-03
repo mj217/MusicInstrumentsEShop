@@ -89,7 +89,7 @@ public class Category {
 			subCategories = new HashSet<>();
 		}
 		if(this.getParentCategory() != null && category.getSubCategories().contains(this.getParentCategory())) {
-			throw new CategoriesCircledStructureException("Category " + category + " is a root for the category " + this);
+			throw new CategoriesCircledStructureException();
 			
 		}
 		subCategories.add(category);
@@ -103,5 +103,5 @@ public class Category {
 		}
 		subCategories.remove(category);
 	}
-
+	
 }

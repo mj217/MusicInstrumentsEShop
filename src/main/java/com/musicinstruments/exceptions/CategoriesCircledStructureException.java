@@ -1,8 +1,10 @@
 package com.musicinstruments.exceptions;
 
+import com.musicinstruments.entity.Category;
+
 public class CategoriesCircledStructureException extends RuntimeException {
 	
-    public CategoriesCircledStructureException(String message) {
-        super(message);
+    public CategoriesCircledStructureException() {
+        super("Circled structure of categories was tried to create");
     }
 }
