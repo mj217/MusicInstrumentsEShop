@@ -6,11 +6,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.musicinstruments.dao.Dao;
 import com.musicinstruments.dao.OrderDao;
+import com.musicinstruments.dao.OrderItemDao;
 import com.musicinstruments.dao.OrderStateDao;
 import com.musicinstruments.entity.Order;
 import com.musicinstruments.entity.OrderItem;
@@ -26,6 +33,9 @@ public class OrderEngine {
 	
 	@Autowired
 	private OrderStateDao orderStateDao;
+	
+	@Autowired
+	private OrderItemDao orderItemDao;
 	
 	public OrderEngine() {
 		
@@ -44,6 +54,10 @@ public class OrderEngine {
 	
 	public void setOrderStateDao(OrderStateDao orderStateDao) {
 		this.orderStateDao = orderStateDao;
+	}
+	
+	public void setOrderItemDao(OrderItemDao orderItemDao) {
+		this.orderItemDao = orderItemDao;
 	}
 	
 	@Transactional
@@ -73,15 +87,47 @@ public class OrderEngine {
 	}
 	
 	@Transactional
-	public void sheduleOrderDelivery(Order order, LocalDateTime deliveryDate) {
+	public void sheduleOrderDelivery(Order order, LocalDate deliveryDate) {
 		order.setDeliveryDate(deliveryDate);
 		orderDao.update(order);
 	}
 	
 	@Transactional
-	public void addItem(OrderItem orderItem) {
-		
+	public void addItem(Order order, OrderItem orderItem) {
+		order.addOrderItem(orderItem);
+		orderDao.update(order);
+		orderItemDao.update(orderItem);
 	}
 	
+	@Transactional
+	public void updateItem(OrderItem orderItem) {
+		orderItemDao.update(orderItem);
+	}
 	
+	@Transactional
+	public void deleteItem(OrderItem orderItem) {
+		Order order = orderItem.getOrder();
+		order.removeOrderItem(orderItem);
+		orderDao.update(order);
+	}
+	
+	@Transactional
+	public Collection<OrderItem> getAllItems(Order order) {
+		return order.getOrderItems();
+	}
+	
+	@Transactional
+	public BigDecimal getOrderTotal(Order order) {
+		Set<OrderItem> orderItems =  order.getOrderItems();
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		for(OrderItem orderItem : orderItems) {
+			totalPrice = totalPrice.add(getItemFullPrice(orderItem));
+		}
+		return totalPrice;
+	}
+	
+	@Transactional
+	public BigDecimal getItemFullPrice(OrderItem orderItem) {
+		return orderItem.getPrice().multiply(BigDecimal.valueOf(orderItem.getQuantity()));
+	}
 }
