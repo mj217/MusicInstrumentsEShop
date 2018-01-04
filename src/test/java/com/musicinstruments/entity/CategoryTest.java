@@ -19,7 +19,7 @@ public class CategoryTest {
 	}
 	
 	@Test
-	public void testSetValidParentCategorySuccess() {
+	public void testAddValidSubCategorySuccess() {
 		Category subCategory = new Category();
 		
 		category.addSubCategory(subCategory);
@@ -34,15 +34,12 @@ public class CategoryTest {
 	}
 	
 	@Test
-	public void addDuplicateSubCategoryFailure() {
+	public void testAddDuplicateSubCategoryFailure() {
 		Category subCategory = new Category();
-		try {
-			category.addSubCategory(subCategory);
-			category.addSubCategory(subCategory);	
-		} catch(CategoriesCircledStructureException e) {
-			e.printStackTrace();
-			fail();
-		}
+		
+		category.addSubCategory(subCategory);
+		category.addSubCategory(subCategory);	
+		
 		assertEquals(category.getSubCategories().size(), 1);
 	}
 	
@@ -71,8 +68,6 @@ public class CategoryTest {
 		subCategory1.addSubCategory(subCategory2);
 		subCategory2.addSubCategory(category);
 		fail();
-
-
 	}
 	
 	private boolean containsSubCategory(Category category, Category subCategory) {

@@ -63,7 +63,9 @@ public class OrderItem {
 	}
 	
 	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+		if(quantity > 0) {
+			this.quantity = quantity;
+		}
 	}
 	
 	public BigDecimal getPrice() {
@@ -71,6 +73,8 @@ public class OrderItem {
 	}
 	
 	public void setPrice(BigDecimal price) {
-		this.price = price;
+		if(price.compareTo(BigDecimal.ZERO) > 0) {
+			this.price = price;
+		}
 	}
 }

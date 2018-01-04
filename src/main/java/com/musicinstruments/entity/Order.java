@@ -1,6 +1,7 @@
 package com.musicinstruments.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -34,7 +35,7 @@ public class Order {
 	private OrderState orderState;
 	
 	@Column(name = "DeliveryDate")
-	private LocalDateTime deliveryDate;
+	private LocalDate deliveryDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "CustomerID", nullable = false)
@@ -68,12 +69,14 @@ public class Order {
 		this.orderState = orderState;
 	}
 	
-	public LocalDateTime getDeliveryDate() {
+	public LocalDate getDeliveryDate() {
 		return deliveryDate;
 	}
 	
-	public void setDeliveryDate(LocalDateTime deliveryDate) {
-		this.deliveryDate = deliveryDate;
+	public void setDeliveryDate(LocalDate deliveryDate) {
+		if(deliveryDate.isAfter(LocalDate.now())) {
+			this.deliveryDate = deliveryDate;
+		}
 	}
 	
 	public User getCustomer() {
