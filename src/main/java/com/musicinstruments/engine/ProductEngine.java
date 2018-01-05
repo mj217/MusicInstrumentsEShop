@@ -46,12 +46,24 @@ public class ProductEngine {
 		this.productDao = productDao;
 	}
 	
+	public ProductDao getProductDao() {
+		return productDao;
+	}
+	
 	public void setCategoryDao(CategoryDao categoryDao) {
 		this.categoryDao = categoryDao;
 	}
 	
+	public CategoryDao getCategoryDao() {
+		return categoryDao;
+	}
+	
 	public void setShoppingCartItemDao(ShoppingCartItemDao shoppingCartItemDao) {
 		this.shoppingCartItemDao = shoppingCartItemDao;
+	}
+	
+	public ShoppingCartItemDao getShoppingCartItemDao() {
+		return shoppingCartItemDao;
 	}
 	
 	@Transactional
@@ -125,6 +137,13 @@ public class ProductEngine {
 	@Transactional
 	public void deleteCategory(Category category) {
 		categoryDao.delete(category);
+	}
+	
+	@Transactional
+	public void assignParentCategory(Category category, Category parentCategory) {
+		parentCategory.addSubCategory(category);
+		categoryDao.update(category);
+		categoryDao.update(parentCategory);
 	}
 
 }

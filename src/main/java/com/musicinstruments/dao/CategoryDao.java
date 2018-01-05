@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.musicinstruments.entity.Category;
 import com.musicinstruments.entity.Order;
+import com.musicinstruments.entity.UserState;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
@@ -77,10 +78,13 @@ public class CategoryDao /*implements Dao<Category, Integer>*/ {
 			delete(entity);
 		}
 	}
-
-	//@Override
+	
+	@Transactional
 	public Category findByName(String name) {
-		return null;		
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Category.class);
+		criteria.add(Restrictions.eq("name", name));
+		return (Category) criteria.uniqueResult();		
 	}
 	
 }
